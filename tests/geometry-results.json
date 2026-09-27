@@ -1,0 +1,173 @@
+{
+  "runAt": "2026-09-27T20:12:20.710Z",
+  "node": "v22.22.1",
+  "checks": [
+    {
+      "name": "Primitive fermée, orientations et volume : box",
+      "ok": true,
+      "ms": 7
+    },
+    {
+      "name": "Primitive fermée, orientations et volume : cylinder",
+      "ok": true,
+      "ms": 3
+    },
+    {
+      "name": "Primitive fermée, orientations et volume : sphere",
+      "ok": true,
+      "ms": 21
+    },
+    {
+      "name": "Primitive fermée, orientations et volume : cone",
+      "ok": true,
+      "ms": 1
+    },
+    {
+      "name": "Primitive fermée, orientations et volume : tube",
+      "ok": true,
+      "ms": 4
+    },
+    {
+      "name": "Primitive fermée, orientations et volume : torus",
+      "ok": true,
+      "ms": 17
+    },
+    {
+      "name": "Primitive fermée, orientations et volume : prism",
+      "ok": true,
+      "ms": 1
+    },
+    {
+      "name": "Primitive fermée, orientations et volume : wedge",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "name": "Primitive fermée, orientations et volume : rounded",
+      "ok": true,
+      "ms": 4
+    },
+    {
+      "name": "Primitive fermée, orientations et volume : gear",
+      "ok": true,
+      "ms": 3
+    },
+    {
+      "name": "Primitive fermée, orientations et volume : sketch",
+      "ok": true,
+      "ms": 1
+    },
+    {
+      "name": "CSG union : volume analytique et fermeture",
+      "ok": true,
+      "ms": 5
+    },
+    {
+      "name": "CSG subtract : volume analytique et fermeture",
+      "ok": true,
+      "ms": 2
+    },
+    {
+      "name": "CSG intersect : volume analytique et fermeture",
+      "ok": true,
+      "ms": 2
+    },
+    {
+      "name": "Perçage traversant : fermé et volume du prisme polygonal",
+      "ok": true,
+      "ms": 22
+    },
+    {
+      "name": "STL binaire : aller-retour exact",
+      "ok": true,
+      "ms": 14
+    },
+    {
+      "name": "STL ASCII : aller-retour exact",
+      "ok": true,
+      "ms": 14
+    },
+    {
+      "name": "STL binaire dont l’en-tête commence par solid",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "name": "Conversion pouces → millimètres",
+      "ok": true,
+      "ms": 1
+    },
+    {
+      "name": "Refus d’un fichier invalide, sans triangles ou NaN",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "name": "Miroir avec orientation conservée",
+      "ok": true,
+      "ms": 1
+    },
+    {
+      "name": "Transformation non uniforme et rotation → STL",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "name": "Extrusion de face plane 5 mm",
+      "ok": true,
+      "ms": 2
+    },
+    {
+      "name": "Extrusion de face plane -5 mm",
+      "ok": true,
+      "ms": 1
+    },
+    {
+      "name": "Découpe en deux solides fermés",
+      "ok": true,
+      "ms": 4
+    },
+    {
+      "name": "Subdivision ×4 conserve le volume et la fermeture",
+      "ok": true,
+      "ms": 1
+    },
+    {
+      "name": "Séparation des composantes déconnectées",
+      "ok": true,
+      "ms": 1
+    },
+    {
+      "name": "Nettoyage de triangles dupliqués",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "name": "Maillage ouvert refusé par les booléens",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "name": "Garde-fou 80 000 triangles",
+      "ok": true,
+      "ms": 21
+    },
+    {
+      "name": "Projet JSON : géométrie, transformations, paramètres, visibilité",
+      "ok": true,
+      "ms": 3
+    },
+    {
+      "name": "Projet JSON : format et transformations invalides refusés",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "name": "STL de démonstration réimporté puis repercé : fermé",
+      "ok": true,
+      "ms": 627
+    }
+  ],
+  "passed": 33,
+  "failed": 0
+}

@@ -1,6 +1,9 @@
-MIT License
+csg.js — adapted BSP algorithms in src/csg.js
+Original source: https://github.com/evanw/csg.js
+Original author: Evan Wallace
+License: MIT
 
-Copyright (c) 2026 Nicolas Hanteville and FORMA 3D contributors
+Copyright (c) 2011 Evan Wallace
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,6 +22,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-The adapted BSP CSG implementation also includes portions credited to
-Evan Wallace. See licenses/csg-MIT.txt.

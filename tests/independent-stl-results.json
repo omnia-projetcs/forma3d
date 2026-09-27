@@ -1,0 +1,78 @@
+{
+  "validator": "trimesh 4.11.1",
+  "checks": [
+    {
+      "file": "examples/cube_20mm_binaire.stl",
+      "faces": 12,
+      "watertight": true,
+      "winding_consistent": true,
+      "volume": 8000.0,
+      "extent_mm": [
+        20.0,
+        20.0,
+        20.0
+      ]
+    },
+    {
+      "file": "examples/cube_20mm_ascii.stl",
+      "faces": 12,
+      "watertight": true,
+      "winding_consistent": true,
+      "volume": 8000.0,
+      "extent_mm": [
+        20.0,
+        20.0,
+        20.0
+      ]
+    },
+    {
+      "file": "examples/support_de_fixation.stl",
+      "faces": 5286,
+      "watertight": true,
+      "winding_consistent": true,
+      "volume": 48753.81409129261,
+      "extent_mm": [
+        80.0,
+        52.0,
+        47.0
+      ]
+    },
+    {
+      "file": "tests/ui-export-binary.stl",
+      "faces": 1774,
+      "watertight": false,
+      "winding_consistent": true,
+      "volume": 9295.158576027266,
+      "extent_mm": [
+        20.0,
+        20.0,
+        25.0
+      ]
+    },
+    {
+      "file": "tests/ui-export-ascii.stl",
+      "faces": 1774,
+      "watertight": false,
+      "winding_consistent": true,
+      "volume": 9295.158576027266,
+      "extent_mm": [
+        20.0,
+        20.0,
+        25.0
+      ]
+    },
+    {
+      "file": "tests/ui-export-fused.stl",
+      "faces": 1300,
+      "watertight": true,
+      "winding_consistent": true,
+      "volume": 9295.158576027266,
+      "extent_mm": [
+        20.0,
+        20.0,
+        25.0
+      ]
+    }
+  ],
+  "note": "Non-fused multi-part exports intentionally retain coincident internal cut faces."
+}

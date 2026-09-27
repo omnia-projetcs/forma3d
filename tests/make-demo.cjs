@@ -1,0 +1,17 @@
+const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const root=path.join(__dirname,'..');for(const n of ['locales','i18n','math','geometry','csg'])vm.runInThisContext(fs.readFileSync(path.join(root,'src',n+'.js'),'utf8'),{filename:n+'.js'});
+const tr=(g,p,q=[0,0,0,1])=>FG.transform(g,FM.compose(p,q,[1,1,1]));
+let base=tr(FG.primitive('rounded',{w:80,d:52,h:7,r:7,segments:5}),[0,0,3.5]);
+const wall=tr(FG.primitive('rounded',{w:80,d:44,h:7,r:6,segments:5}),[0,20,25],FM.qeuler([90,0,0]));
+base=FCSG.run(base,wall,'union');
+for(const x of [-27,27])base=FCSG.run(base,tr(FG.primitive('cylinder',{r:4.2,h:18,segments:24}),[x,-10,5]),'subtract');
+for(const x of [-22,22])base=FCSG.run(base,tr(FG.primitive('cylinder',{r:6,h:18,segments:28}),[x,20,30],FM.qeuler([90,0,0])),'subtract');
+const a=FG.analyze(base);console.log('Demo topology',a);if(!a.closed)throw Error('Demo not closed');
+const center=base.bounds.center,g=FG.center(base),id='demo-bracket';const obj={id,name:'Support de fixation',position:center,rotation:[0,0,0,1],scale:[1,1,1],color:'#6581ec',visible:true,locked:false,hole:false,smooth:false,param:null,geo:id};
+const data={format:'forma3d',version:1,units:'mm',title:'Support de fixation',encoding:'base64-f32-le',objects:[obj],geometries:{[id]:{positions:Buffer.from(g.positions.buffer).toString('base64')}}};
+fs.writeFileSync(path.join(root,'assets/demo.js'),'var FORMA_DEMO = '+JSON.stringify(data)+';\n');
+fs.writeFileSync(path.join(root,'examples/support_de_fixation.forma3d'),JSON.stringify(data));
+fs.writeFileSync(path.join(root,'examples/support_de_fixation.stl'),Buffer.from(FG.exportSTL([base],true)));
+const cube=tr(FG.primitive('box',{w:20,d:20,h:20}),[0,0,10]);
+fs.writeFileSync(path.join(root,'examples/cube_20mm_binaire.stl'),Buffer.from(FG.exportSTL([cube],true)));
+fs.writeFileSync(path.join(root,'examples/cube_20mm_ascii.stl'),FG.exportSTL([cube],false,'cube_20mm'));
