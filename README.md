@@ -1,175 +1,147 @@
-# FORMA 3D — local 3D modelling and STL editor
+# FORMA 3D
 
-Version 1.0 • English / French interface • HTML, CSS and JavaScript • native WebGL
+### Local 3D modeling and STL editing — right in your browser
 
-**Author: Nicolas Hanteville** · [Documentation française](README.fr.md) · [MIT license](LICENSE)
+**Version 1.1.2 · HTML5 / CSS3 / JavaScript · Native WebGL · 100% Local & Self-Contained**
 
-FORMA 3D is a mesh editor with simple parametric shapes, 3D manipulation, Boolean operations, local sculpting and STL import/export. Its workflow is based on assembling volumes. It does not include a B-rep kernel or a mechanical constraint solver.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)]()
+[![100% Client-Side](https://img.shields.io/badge/cloud-none-blueviolet.svg)]()
+[![WebGL](https://img.shields.io/badge/rendering-Native_WebGL-orange.svg)]()
 
-## Getting started
+---
 
-**Open `FORMA3D.html` in a recent desktop browser with WebGL enabled.** This standalone file includes the code, styles, geometry engine, both languages and the example model. It loads no CDN, remote font or remote model. No account or subscription is required.
+![FORMA 3D Preview](FORMA3D_v1.1.2_EN_Preview.png)
 
-The source distribution also includes `index.html`, which loads local files from `src/` and `assets/`. Keep the directory structure intact.
+---
 
-Some browser or enterprise policies restrict workers or storage for local files. In that case, use the optional static server, without installing dependencies:
+FORMA 3D is a lightweight, self-contained 3D mesh editor for designing parts from geometric primitives and modifying imported STL files directly inside your web browser. Resize objects with intuitive on-canvas handles, combine solids, subtract hole volumes, extrude planar faces, sculpt details, and export clean STL files ready for your 3D slicer.
 
+> **No account required · No cloud processing · No CDN assets · Zero runtime dependencies (no npm).**
+
+---
+
+## 📂 Repository Contents
+
+This repository is designed to be minimal, ultra-portable, and instantly usable without any build toolchain:
+
+| File | Description |
+| :--- | :--- |
+| **[`FORMA3D_EN.html`](FORMA3D_EN.html)** | **Complete standalone English application** (all HTML, CSS, JavaScript, WebGL renderer, CSG engine, and demo part in a single file). |
+| **[`FORMA3D_FR.html`](FORMA3D_FR.html)** | **Complete standalone French application** (Édition autonome en français). |
+| **[`FORMA3D_EN_Preview.png`](FORMA3D_EN_Preview.png)** | High-resolution user interface screenshot and preview image. |
+| **[`LICENSE`](LICENSE)** | MIT Open Source License (Nicolas Hanteville & contributors). |
+| **[`README.md`](README.md)** | User guide and comprehensive project documentation. |
+
+---
+
+## 🚀 Quick Start
+
+### 1. Direct Launch (Easiest)
+Simply double-click on **`FORMA3D_EN.html`** (or `FORMA3D_FR.html` for the French edition) to open it in any modern desktop browser (Google Chrome, Mozilla Firefox, Microsoft Edge, Safari, Brave, etc.) with hardware acceleration/WebGL enabled.
+
+Because it is a single self-contained HTML file, you can keep it on a USB flash drive or offline drive and use it anywhere without an Internet connection.
+
+### 2. Optional Local Web Server
+Some strict corporate environments or browser privacy policies restrict Web Workers or IndexedDB storage on direct `file://` URLs. If needed, you can serve the directory using any lightweight static web server:
+
+With **Python 3**:
 ```bash
-cd forma3d
-./run.sh
-# Open http://127.0.0.1:8080
+python3 -m http.server 8080
 ```
+Then navigate to: [http://127.0.0.1:8080/FORMA3D_EN.html](http://127.0.0.1:8080/FORMA3D_EN.html)
 
-`run.sh` uses an existing Node.js or Python 3 installation. Editing and calculations stay entirely in the browser; the server only serves files over loopback. Nothing is sent to a third-party service.
-
-With Node.js alone:
-
+With **Node.js**:
 ```bash
-node server.mjs
-# Alternative port: PORT=8090 node server.mjs
+npx serve .
 ```
 
-Click **Explore an example part** to open a mounting bracket with holes. The example is also available as an STL in `examples/`.
+*Note: All computation, CSG operations, and rendering take place locally inside your browser client. The server only delivers static files over loopback.*
 
-## Languages
+---
 
-Use the **EN / FR** selector in the header to switch languages without reloading or losing your project. On first launch, the editor chooses the first supported browser language, falling back to English. Your choice is saved locally when browser storage is available; switching also works when storage is blocked.
+## ✨ Features
 
-The interface, tooltips, accessibility labels, dialogs, help, notifications, validation errors and worker errors support both languages. New default object names use the current language. Existing project names, object names and imported file names remain unchanged. The project format, STL coordinates and units are independent of the interface language.
+| Area | Features & Included Tools |
+| :--- | :--- |
+| **Shape library** | 10 parametric primitives: cube/box, cylinder, sphere, cone/frustum, tube, torus, prism (3 to 32 sides), wedge, rounded plate, and decorative gear. |
+| **Faithful previews** | Shape thumbnails dynamically rendered from exact primitive geometries with visible openings and proportions. |
+| **Direct manipulation** | Move (`G`), rotate (`R`), resize handles (`S`), clickable on-canvas dimensions, grid snapping, and proportional scaling. |
+| **2D sketches** | Interactive polygon drawing with draggable vertices on a snap grid, with direct Z extrusion. |
+| **CSG Solid operations** | Union, subtraction, intersection, and automatic Solid / Hole roles. Retain hidden source objects if desired. |
+| **Mesh editing** | Positive/negative planar face extrusion (`E`), plane slicing (`Cut`), connected component separation, and subdivision. |
+| **Sculpting** | Inflate, deflate, smooth, and flatten brushes (`B`) with configurable radius and pressure. |
+| **Inspection & Analysis** | Two-point caliper measurement (`M`), wireframe mode, X-ray transparency, smooth shading, and mesh watertightness diagnostics. |
+| **STL Import & Export** | Binary and ASCII STL support, multi-file drag-and-drop, and automatic unit conversion (mm, cm, m, inches). |
+| **Project management** | Native editable `.forma3d` format, session undo/redo, automatic IndexedDB session backup, and high-resolution PNG snapshots. |
 
-The primary README is in English; the [French README](README.fr.md) is maintained alongside it.
+---
 
-## Features
+## 💡 Common Workflows
 
-| Area | Features |
-|---|---|
-| Creation | Box, cylinder, sphere, cone/truncated cone, tube, torus, prism, wedge, rounded plate, decorative gear |
-| Sketching | Simple polygon outline, draggable points, grid, Z extrusion, outline editing while the shape remains parametric |
-| Manipulation | Single/multiple selection, translation axes, rotation rings, scale handles, numeric input, locked proportions, grid snapping |
-| Placement | Centre X/Y, place on ground, alignment, local mirror, duplication, linear arrays |
-| Volumes | Union, subtraction, intersection, composition of solids and hole volumes, optional hidden source objects |
-| STL | ASCII/binary import, mm/cm/m/inch input units, multiple files, drag and drop, ASCII/binary export of selected or visible solids |
-| Mesh editing | Positive/negative extrusion of a planar region, X/Y/Z plane cuts, connected-component separation, ×4 subdivision |
-| Sculpting | Inflate, deflate, smooth and flatten brushes; adjustable radius and strength; undoable strokes |
-| Inspection | Distance between surface points, bounding dimensions, triangle display, transparency, smooth shading |
-| Diagnostics | Triangle/vertex counts, open/non-manifold edges, inconsistent orientation, degenerate triangles, surface area and signed volume |
-| Projects | Save/open `.forma3d`, attempted IndexedDB autosave, session undo/redo, PNG view export |
+### 1. Create and resize a part
+1. Click any shape from the left library panel to add it to the scene.
+2. Select the shape. Dimensioning handles appear automatically in **Move (`G`)** and **Resize (`S`)** modes.
+   - **X, Y, Z face handles**: stretch or shrink along that axis while keeping the opposite side fixed.
+   - **Bottom corner handles**: adjust width and depth simultaneously.
+   - Hold **`Shift`** (or toggle *Proportions*) to scale all three dimensions uniformly.
+   - Hold **`Alt`** (or toggle *From center*) to resize symmetrically around the center.
+   - **Click any numerical dimension** in the 3D viewport to type an exact measurement in millimeters (`Enter` to apply, `Esc` to cancel).
 
-**Clean triangles** removes duplicates and degenerate triangles. **It does not fill holes.** Simplification and geometry smoothing are destructive, so the editor keeps a hidden copy of the original. Visual normal smoothing does not move vertices.
+### 2. Subtract a hole from a solid
+1. Add or import your solid base part.
+2. Add a cutting shape (e.g., a cylinder) and position it overlapping the part.
+3. In the right-hand Inspector, switch its role from **Solid** to **Hole**.
+4. Select both the solid part and the hole using **`Shift` + click**.
+5. Choose **Operations → Merge / apply holes**.
+6. The operation merges any solids and subtracts the hole volumes cleanly without adding unwanted geometry.
 
-## Editing an STL
+### 3. Modify an existing STL file
+1. Click **Import STL**, select your file, and confirm its coordinate units (the editor operates internally in millimeters).
+2. Use **Resize** to adjust dimensions, **Cut** to slice the mesh along a plane, **Face** to extrude planar surfaces, or **Sculpt** for localized surface shaping.
+3. Click **Export STL** when ready (choose Binary format for faster slicing and smaller file size).
 
-1. Click **Import STL**, choose the file and its units. STL has no standardized unit metadata; choosing incorrectly can make a part 10, 25.4 or 1,000 times too large.
-2. Adjust **Local dimensions**, **Position** and **Rotation** in the inspector. Dimensions are measured before rotation; view labels show world-space bounds.
-3. To extend a planar region, activate **Face**, click its surface, enter a distance and apply. Positive distances add material; negative distances remove it. This does not reconstruct CAD history or edit an original radius feature.
-4. To remove half a part or split it, use **Cut**, choose the plane axis and coordinate, then keep one side or create two parts.
-5. To drill a hole, add a cylinder, size it and position it through the part, mark it as **Hole**, select both objects with Shift+click, then use **Operations → Compose solids + holes**.
-6. Analyze the result, save the editable project and export STL. Check the result in your slicer or manufacturing tool.
+---
 
-For direct subtraction, **the first selected object is the target**. Compose first unions the solids, then subtracts hole volumes.
+## ⌨️ Navigation & Keyboard Shortcuts
 
-Preserved source objects stay dimmed in the object list. The eye button makes them visible again. Hidden sources are not exported. A Hole object is only a tool: it removes material only after composition or an export with solid union and hole application enabled.
+| Action | Mouse / Keyboard Input |
+| :--- | :--- |
+| **Select object** | Left click |
+| **Add / remove from selection** | `Shift` + click |
+| **Box selection** | `Shift` + drag background |
+| **Camera orbit** | Right-drag or drag background |
+| **Camera pan** | Middle-drag or `Alt` + drag |
+| **Zoom** | Mouse wheel / pinch gesture |
+| **Move / Rotate / Resize** | `G` / `R` / `S` |
+| **Face / Sculpt / Measure** | `E` / `B` / `M` |
+| **Frame selection in view** | `F` |
+| **Undo / Redo** | `Ctrl + Z` / `Ctrl + Shift + Z` (or `Ctrl + Y`) |
+| **Save / Open project** | `Ctrl + S` / `Ctrl + O` |
+| **Duplicate object** | `Ctrl + D` |
+| **Select all** | `Ctrl + A` |
+| **Delete object** | `Delete` or `Backspace` |
+| **Step move along grid** | Arrow keys (X/Y) · `Shift + ↑ / ↓` (Z) |
+| **Cancel current tool/gesture** | `Esc` |
 
-### Sculpting a surface
+---
 
-Select a part, activate **Sculpt**, choose a brush action and drag over the surface. Brushes move existing vertices. A large triangle without vertices near the brush may appear unresponsive: increase the radius or use **Subdivide ×4**. There is no adaptive remeshing during a stroke. Sculpting can introduce self-intersections; analyze and inspect the result.
+## ⚙️ Technical Limits & Specifications
 
-### Creating a part from a drawing
+FORMA 3D is a lightweight polyhedral mesh editor tailored for rapid 3D printing preparation and quick modifications. It is not an exact mechanical CAD B-rep kernel with parametric feature history (such as SolidWorks or FreeCAD).
 
-Click **Create a 2D sketch**, place at least three vertices and extrude. The outline closes automatically. It may be concave, but cannot intersect itself or contain holes. For a hole, extrude a second outline and subtract it. Sketch constraints and dimensions are not solved automatically.
+- **Boolean complexity**: 80,000 combined triangles per operand pair.
+- **STL file input**: up to 100 MB per file.
+- **Geometry budget**: up to 1,200,000 triangles per object.
+- **Batch import**: up to 20 STL files per import.
+- **Project capacity**: up to 300 scene objects.
+- **Direct dimensions range**: 0.01 mm to 100,000 mm.
 
-## Navigation and shortcuts
+---
 
-| Action | Control |
-|---|---|
-| Selection | Click; Shift+click to add/remove |
-| Box selection | Shift+drag the background; selects projected object centres |
-| Orbit | Drag the background or use the right mouse button |
-| Pan camera | Middle mouse button or Alt+drag |
-| Zoom | Scroll wheel; two-finger gesture support |
-| View | Top/front/left/right/isometric buttons; orthographic/perspective |
-| Move / rotate / scale | G / R / S |
-| Face / sculpt / measure | E / B / M |
-| Frame | F |
-| Undo / redo | Ctrl+Z / Ctrl+Shift+Z or Ctrl+Y |
-| Save / duplicate | Ctrl+S / Ctrl+D |
-| Select all / delete | Ctrl+A / Delete |
-| Move by steps | Arrow keys; Shift+up/down for Z |
+## 📄 License & Attribution
 
-## Saving and privacy
+Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
-**Export STL** produces triangulated geometry without colours, parameters, named objects or history. **Also keep a `.forma3d` file** to resume editing. This format stores geometry, names, colours, transforms, unfrozen shape parameters, solid/hole state, visibility and locking. Mesh operations freeze the resulting shape’s parameters; source objects can be preserved separately.
-
-Undo/redo history stays in memory for the current session: up to 45 steps, subject to a geometry memory budget. It is not stored in the project file. Camera, grid and brush settings are not persisted. The interface language is stored separately as a browser preference.
-
-IndexedDB autosave is a convenience, not a durable backup. Clearing browser data, changing the origin/directory or restrictive browser settings can make it unavailable. The interface reports this. Explicit project files are your saved backups.
-
-The application makes no calls to AI servers, cloud storage or external APIs. This describes the application code, not the behaviour of browser extensions, browser configuration or browser telemetry.
-
-## Safeguards and limitations
-
-- **Booleans: 80,000 combined triangles per operand pair.** Inputs must be closed and outward-facing. Topologically open results are rejected and project objects stay unchanged. Tangent, nearly coplanar, very thin, very large or self-intersecting inputs may fail. This floating-point engine is not an exact CAD kernel.
-- **Files:** at most 100 MiB per STL, 1,200,000 triangles per geometry, 20 STL files per import and 300 objects per project. These are ceilings, not performance guarantees. Use substantially smaller meshes for Booleans and sculpting.
-- **Sculpting:** interactive limit of 120,000 triangles; subdivision accepts up to 180,000 input triangles; the interface limits ASCII export to 150,000 triangles. Prefer binary STL.
-- **Jobs:** cancellable workers, a 90-second timeout and internal computation budgets. Expensive operations may be rejected before these limits.
-- **Quality:** diagnostics do not detect self-intersections, minimum wall thickness or every manufacturing defect. Passing edge checks does not certify printability. Vertex-clustering simplification may change shape and topology.
-- **Not included:** STEP/IGES, NURBS, exact B-rep, constraint solving, dependent parametric history, standardized mechanical threads/gears, articulated assemblies, arbitrary edge fillets/chamfers or universal STL repair. The rounded plate is an extruded rounded 2D outline.
-
-Stored vertices use 32-bit floats; intermediate calculations use JavaScript numbers. Topology checks weld by 0.00001 mm quantization; Boolean tolerance depends on part extent. The editor is not a certified metrology tool.
-
-## Project structure and development
-
-```text
-FORMA3D.html             ready-to-open standalone distribution
-index.html              multi-file entry point
-src/shell.html          HTML structure
-src/ui.css              responsive interface styles
-src/locales.js          English translations keyed by French source messages
-src/i18n.js             language selection, persistence and translation helpers
-src/app.js              state, commands, history and interaction
-src/renderer.js         WebGL rendering, camera and picking
-src/math.js             matrices, vectors and quaternions
-src/geometry.js         primitives, STL, topology, sketches and sculpting
-src/csg.js              BSP, union/subtraction/intersection and checks
-src/worker.js           isolated geometry jobs with the selected language
-src/storage.js          project format and IndexedDB
-assets/worker-source.js generated embedded worker
-assets/demo.js          embedded example, no download required
-examples/               sample projects and STL files
-build.mjs               assembly without npm dependencies
-server.mjs / run.sh     optional static server
-licenses/               adapted third-party code attribution
-tests/                  numerical and browser checks
-```
-
-Scripts are classic JavaScript, without runtime ES module imports, for local-file compatibility. Workers are created from a Blob. No framework, bundler, npm package or WebAssembly is required to run the editor.
-
-```bash
-npm test                       # numerical, serialization and localization checks
-node build.mjs                 # rebuild both HTML entries and embedded worker
-node server.mjs                # optional local server
-python tests/browser_functional.py  # optional existing browser workflow
-python tests/browser_i18n.py    # optional bilingual browser checks
-```
-
-`npm run build` and `npm start` are also available. **`npm install` is unnecessary.** Optional browser checks need Python, Playwright and Chromium in the development environment. Set `CHROMIUM_EXECUTABLE` to override the browser path. Test tooling is never loaded by the application.
-
-To add a message, use `FI.t('French source message')` and add its English translation to `src/locales.js`. Keep user text outside translation calls. The static shell is translated before dynamic content is inserted. Both the main thread and workers load the same catalogue. Rebuild the distribution after source changes.
-
-## Validation
-
-See [TESTS.md](TESTS.md) and the reports in `tests/` for the tested scope and limitations. These checks do not constitute industrial validation, complete cross-browser coverage or support for every STL family.
-
-## License and references
-
-Copyright © 2026 **Nicolas Hanteville and FORMA 3D contributors**. Distributed under the MIT license.
-
-The BSP Boolean sequences and plane splitting in `src/csg.js` are adapted from **csg.js by Evan Wallace, copyright 2011, MIT**. The complete notice is in `licenses/csg-MIT.txt` and the standalone distribution. Third-party attribution is preserved.
-
-Technical references for the format and algorithm (no runtime dependencies):
-
-- [Evan Wallace’s csg.js](https://evanw.github.io/csg.js/)
-- [csg.js source](https://github.com/evanw/csg.js)
-- [Three.js STL exporter documentation](https://threejs.org/docs/pages/STLExporter.html)
-- [MDN WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
-- [MDN Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)
+- **Author**: Nicolas Hanteville and FORMA 3D contributors.
+- **CSG Engine**: The BSP solid boolean implementation adapts portions of **csg.js by Evan Wallace** (Copyright © 2011, MIT License).
