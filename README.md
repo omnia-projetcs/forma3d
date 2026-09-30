@@ -9,10 +9,7 @@
 [![100% Client-Side](https://img.shields.io/badge/cloud-none-blueviolet.svg)]()
 [![WebGL](https://img.shields.io/badge/rendering-Native_WebGL-orange.svg)]()
 
----
-
-![FORMA 3D Preview](FORMA3D_v1.1.2_EN_Preview.png)
-
+![FORMA 3D Preview](FORMA3D_EN_Preview.png)
 ---
 
 FORMA 3D is a lightweight, self-contained 3D mesh editor for designing parts from geometric primitives and modifying imported STL files directly inside your web browser. Resize objects with intuitive on-canvas handles, combine solids, subtract hole volumes, extrude planar faces, sculpt details, and export clean STL files ready for your 3D slicer.
