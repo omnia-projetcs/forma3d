@@ -2,7 +2,7 @@
 
 ### Local 3D modeling and STL editing — right in your browser
 
-**Version 1.1.2 · HTML5 / CSS3 / JavaScript · Native WebGL · 100% Local & Self-Contained**
+**HTML5 / CSS3 / JavaScript · Native WebGL · 100% Local & Self-Contained**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)]()
