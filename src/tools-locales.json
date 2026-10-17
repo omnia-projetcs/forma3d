@@ -1,0 +1,48 @@
+{
+  "en": {
+    "locale": "en-US", "patterns": "Patterns", "patternIntro": "Repeat the selection as a group. The original is included in the count.",
+    "kind": "Pattern type", "linear": "Linear pattern", "grid": "Rectangular grid", "circular": "Circular pattern", "axis": "Axis", "count": "Count / columns", "rows": "Rows", "secondAxis": "Second axis", "spacing": "Center-to-center spacing (mm)", "rowSpacing": "Row spacing (mm)", "angle": "Total angle (degrees)",
+    "center0": "Center X (mm)", "center1": "Center Y (mm)", "center2": "Center Z (mm)", "rotateCopies": "Rotate copies with the pattern", "createCopies": "Create copies", "newObjects": "new objects",
+    "angleHelp": "A full 360° turn does not duplicate the starting position. For a partial arc, both endpoints are included. The axis passes through the chosen center.",
+    "patternHelp": "Spacing is measured between occurrences of the selection. Copies are independent and keep their parameters, colors, materials and original shapes. One undo step restores the scene.",
+    "selectObjects": "Select at least one visible, unlocked object.", "selectSolids": "Select at least one visible solid.",
+    "material": "Material & density", "materialIntro": "Apply to the selected visible, unlocked solids.", "preset": "Preset", "custom": "Custom", "unassigned": "No material assigned", "materialName": "Material name", "density": "Density (g/cm³)", "applyMaterial": "Apply material", "aluminum": "Aluminum", "steel": "Steel",
+    "densityHelp": "Preset densities are indicative. Adjust to your material's data sheet. Choose “No material assigned” to remove the assignment. Materials are saved in the project and libraries.",
+    "physical": "Mass & center of gravity", "physicalIntro": "Full solid properties · original geometry · world coordinates in mm", "volume": "Volume", "mass": "Mass", "surface": "Surface area", "centerOfMass": "Center of gravity", "object": "Object", "invalidMesh": "Open, invalid or inverted mesh",
+    "massHelp": "Theoretical mass of fully dense solids, without infill, supports or printing settings. Objects are added separately: overlaps are counted twice and Hole objects are ignored. Merge and apply holes first to measure the final part.",
+    "massInvalidHelp": "Mass and center require a closed, consistently oriented mesh and an assigned density for every measured solid. Self-intersections and nested internal shells are not certified by this check.",
+    "section": "Section inspection", "closeSection": "Close section", "foldSection": "Collapse or expand section controls", "planePosition": "Plane coordinate (mm)", "slidePlane": "Move the inspection plane", "keepAbove": "Keep the upper side (≥)", "inspection": "Inspection",
+    "sectionHelp": "Rotate and zoom to inspect. Orange shows section surfaces. Original geometry, project files and STL exports stay complete. Close with × or Esc; editing also closes inspection.",
+    "invalidPlane": "Enter a coordinate within the visible solids' bounds.", "buildingSection": "Calculating section surfaces…", "sectionReady": "Inspection only · geometry unchanged", "sectionFailed": "Clipped view active; some section surfaces could not be filled.",
+    "errors": {}
+  },
+  "fr": {
+    "locale": "fr-FR", "patterns": "Répétitions", "patternIntro": "Répétez la sélection en groupe. L’original est inclus dans le nombre.",
+    "kind": "Type de répétition", "linear": "Répétition linéaire", "grid": "Grille rectangulaire", "circular": "Répétition circulaire", "axis": "Axe", "count": "Nombre / colonnes", "rows": "Lignes", "secondAxis": "Deuxième axe", "spacing": "Espacement entre centres (mm)", "rowSpacing": "Espacement des lignes (mm)", "angle": "Angle total (degrés)",
+    "center0": "Centre X (mm)", "center1": "Centre Y (mm)", "center2": "Centre Z (mm)", "rotateCopies": "Tourner les copies avec la répétition", "createCopies": "Créer les copies", "newObjects": "nouveaux objets",
+    "angleHelp": "Un tour complet de 360° ne duplique pas la position initiale. Sur un arc partiel, les deux extrémités sont incluses. L’axe passe par le centre choisi.",
+    "patternHelp": "L’espacement sépare les occurrences de la sélection. Les copies sont indépendantes et conservent paramètres, couleurs, matières et formes sources. Une seule annulation restaure la scène.",
+    "selectObjects": "Sélectionnez au moins un objet visible et déverrouillé.", "selectSolids": "Sélectionnez au moins un solide visible.",
+    "material": "Matière et densité", "materialIntro": "Appliquer aux solides sélectionnés, visibles et déverrouillés.", "preset": "Préréglage", "custom": "Personnalisé", "unassigned": "Aucune matière attribuée", "materialName": "Nom de la matière", "density": "Densité (g/cm³)", "applyMaterial": "Appliquer la matière", "aluminum": "Aluminium", "steel": "Acier",
+    "densityHelp": "Les densités proposées sont indicatives. Adaptez-les à la fiche de votre matière. Choisissez « Aucune matière attribuée » pour retirer l’affectation. Les matières sont enregistrées dans le projet et les bibliothèques.",
+    "physical": "Masse et centre de gravité", "physicalIntro": "Propriétés du solide plein · géométrie originale · coordonnées globales en mm", "volume": "Volume", "mass": "Masse", "surface": "Surface", "centerOfMass": "Centre de gravité", "object": "Objet", "invalidMesh": "Maillage ouvert, invalide ou inversé",
+    "massHelp": "Masse théorique de solides pleins, sans remplissage, supports ni paramètres d’impression. Les objets sont additionnés séparément : les chevauchements comptent deux fois et les objets Perçage sont exclus. Fusionnez et appliquez les perçages pour mesurer la pièce finale.",
+    "massInvalidHelp": "La masse et le centre nécessitent un maillage fermé, correctement orienté, et une densité attribuée à chaque solide mesuré. Ce contrôle ne certifie pas l’absence d’auto-intersections ou d’enveloppes internes imbriquées.",
+    "section": "Coupe d’inspection", "closeSection": "Fermer la coupe", "foldSection": "Réduire ou déployer les réglages de coupe", "planePosition": "Coordonnée du plan (mm)", "slidePlane": "Déplacer le plan d’inspection", "keepAbove": "Conserver le côté supérieur (≥)", "inspection": "Inspection",
+    "sectionHelp": "Tournez et zoomez pour examiner la pièce. L’orange indique les surfaces de section. La géométrie originale, le projet et les STL restent complets. Fermez avec × ou Échap ; une modification ferme aussi l’inspection.",
+    "invalidPlane": "Saisissez une coordonnée dans les limites des solides visibles.", "buildingSection": "Calcul des surfaces de section…", "sectionReady": "Inspection uniquement · géométrie inchangée", "sectionFailed": "Vue coupée active ; certaines surfaces de section n’ont pas pu être remplies.",
+    "errors": {
+      "Invalid material: density must be 0.001–30 g/cm³.": "Matière invalide : la densité doit être comprise entre 0,001 et 30 g/cm³.",
+      "Invalid pattern type, axis or count.": "Vérifiez le type de répétition, l’axe et le nombre entier de copies.",
+      "Spacing must be 0.01–100,000 mm (positive or negative).": "L’espacement doit être compris entre 0,01 et 100 000 mm en valeur absolue.",
+      "Choose two different axes, valid counts and non-zero spacing.": "Choisissez deux axes différents, des nombres entiers et des espacements non nuls.",
+      "Choose an angle between −360° and 360° (non-zero) and a valid center.": "Choisissez un angle non nul entre −360° et 360° et un centre valide.",
+      "The pattern must contain 2–300 occurrences, including the original.": "La répétition doit contenir 2 à 300 occurrences, original compris.",
+      "Maximum: 300 objects. Reduce the pattern count.": "Maximum : 300 objets. Réduisez le nombre de copies.",
+      "The pattern would exceed the 180 MiB geometry budget.": "La répétition dépasserait le budget de 180 Mio de géométrie.",
+      "Pattern positions are outside the supported range.": "Les positions des copies dépassent les coordonnées prises en charge.",
+      "Selection exceeds the 64 MiB clipboard budget. Copy fewer objects.": "La sélection dépasse 64 Mio. Réduisez le nombre d’objets à répéter.",
+      "Copies would exceed the 180 MiB project geometry budget. No copies were added.": "Les copies dépasseraient 180 Mio de géométrie. Aucune copie n’a été ajoutée."
+    }
+  }
+}

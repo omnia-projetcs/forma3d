@@ -29,6 +29,9 @@ This repository is designed to be minimal, ultra-portable, and instantly usable 
 | **[`FORMA3D_EN_Preview.png`](FORMA3D_EN_Preview.png)** | High-resolution user interface screenshot and preview image. |
 | **[`LICENSE`](LICENSE)** | MIT Open Source License (Nicolas Hanteville & contributors). |
 | **[`README.md`](README.md)** | User guide and comprehensive project documentation. |
+| **`src/tools-*.js`, `src/tools-locales.json`, `src/tools.css`** | Shared sources for the new patterns and inspection tools, embedded into both standalone editions. Needed only for development. |
+| **`scripts/embed-tools.py`** | Rebuilds the embedded tools without adding runtime dependencies. |
+| **`tests/test_tools.py`** | Browser and geometry regression checks for both editions. |
 
 ---
 
@@ -61,16 +64,18 @@ npx serve .
 
 | Area | Features & Included Tools |
 | :--- | :--- |
-| **Shape library** | 10 parametric primitives: cube/box, cylinder, sphere, cone/frustum, tube, torus, prism (3 to 32 sides), wedge, rounded plate, and decorative gear. |
+| **Shape library** | 26 built-in shape tools, including primitives, polyhedra, text, springs, screws and threaded-hole cutters; personal reusable shape libraries. |
 | **Faithful previews** | Shape thumbnails dynamically rendered from exact primitive geometries with visible openings and proportions. |
 | **Direct manipulation** | Move (`G`), rotate (`R`), resize handles (`S`), clickable on-canvas dimensions, grid snapping, and proportional scaling. |
-| **2D sketches** | Interactive polygon drawing with draggable vertices on a snap grid, with direct Z extrusion. |
+| **Patterns** | Linear, rectangular grid and circular patterns; custom center/axis, full turns or partial arcs, optional copy rotation. Copies retain materials, parameters and source shapes. |
+| **2D sketches** | Draw in Top, Front and Right views; right-click to add anchors or insert them on existing lines and curves, including closed outlines. Right-drag pans the view; additions support undo/redo. |
 | **CSG Solid operations** | Union, subtraction, intersection, and automatic Solid / Hole roles. Retain hidden source objects if desired. |
 | **Mesh editing** | Positive/negative planar face extrusion (`E`), plane slicing (`Cut`), connected component separation, and subdivision. |
 | **Sculpting** | Inflate, deflate, smooth, and flatten brushes (`B`) with configurable radius and pressure. |
-| **Inspection & Analysis** | Two-point caliper measurement (`M`), wireframe mode, X-ray transparency, smooth shading, and mesh watertightness diagnostics. |
+| **Inspection & Analysis** | Two-point caliper measurement (`M`), wireframe mode, X-ray transparency, smooth shading, mesh diagnostics, and interactive section inspection along X/Y/Z with colored section surfaces. |
+| **Physical properties** | Per-object materials and density, full-solid theoretical mass, transformed surface area and volume, and density-weighted center of gravity. |
 | **STL Import & Export** | Binary and ASCII STL support, multi-file drag-and-drop, and automatic unit conversion (mm, cm, m, inches). |
-| **Project management** | Native editable `.forma3d` format, session undo/redo, automatic IndexedDB session backup, and high-resolution PNG snapshots. |
+| **Project management** | Native editable `.forma3d` format, branching undo/redo history, retained source shapes and materials, automatic IndexedDB session backup, and high-resolution PNG snapshots. |
 
 ---
 
@@ -97,6 +102,18 @@ npx serve .
 1. Click **Import STL**, select your file, and confirm its coordinate units (the editor operates internally in millimeters).
 2. Use **Resize** to adjust dimensions, **Cut** to slice the mesh along a plane, **Face** to extrude planar surfaces, or **Sculpt** for localized surface shaping.
 3. Click **Export STL** when ready (choose Binary format for faster slicing and smaller file size).
+
+### 4. Create a circular pattern or a grid
+1. Select the visible, unlocked objects to repeat and open **Pattern** in Properties, or **More tools → Patterns**.
+2. Choose **Linear**, **Rectangular grid** or **Circular**. Counts include the original selection. Grid spacing separates selection occurrences in world coordinates.
+3. For circular patterns, choose the world axis and the point it passes through. A full turn distributes copies without repeating the first position; a partial arc includes both endpoints. Turn off **Rotate copies** to preserve each object's orientation.
+4. Create the copies. The complete pattern is one undo step, with a maximum of 300 scene objects and the existing geometry memory budget.
+
+### 5. Inspect the interior and measure mass
+1. Open **Section inspection** in Properties or More tools. Move the plane with the slider or enter a coordinate, select X/Y/Z, and optionally reverse the retained side. Orange surfaces show the section; existing cavities are preserved where capping succeeds.
+2. Rotate, pan and zoom to inspect. Collapse the controls with **−** to free the view on small screens. Close with **×** or **Esc**. Editing also closes inspection. Project saves and STL exports always use the complete original geometry. Section settings are temporary and do not add history states.
+3. Select solids, assign **Material & density**, then open **Mass & center of gravity**. Density is in g/cm³; presets are indicative and editable. Assignments survive project saves, history navigation, copying and library storage. A merge inherits material only when all solid inputs have the same assignment.
+4. Reported mass assumes fully dense solids and does not estimate infill, supports or slicer settings. Separate objects are summed, so overlaps count twice and Hole objects are ignored. Merge and apply holes first to measure the finished part. Open, invalid or inverted meshes do not receive a mass result; every measured solid needs a material for a combined mass and center of gravity.
 
 ---
 
@@ -133,6 +150,17 @@ FORMA 3D is a lightweight polyhedral mesh editor tailored for rapid 3D printing 
 - **Batch import**: up to 20 STL files per import.
 - **Project capacity**: up to 300 scene objects.
 - **Direct dimensions range**: 0.01 mm to 100,000 mm.
+
+## Development checks
+
+Both HTML editions still work on their own. To update the shared pattern and inspection tools, edit their sources in `src/`, then run:
+
+```bash
+python3 scripts/embed-tools.py
+python3 scripts/embed-tools.py --check
+```
+
+Run `python3 tests/test_tools.py` for syntax checks, analytic geometry checks, and browser workflows in both languages. Run `python3 tests/test_sketch_points.py` for right-click sketch drawing, insertion, curve preservation, pan and undo/redo checks. Development checks require Node.js, Python Playwright and Chrome/Chromium; the application has no such runtime dependencies. Set `FORMA_CHROME` if the browser executable is not on the default path.
 
 ---
 
