@@ -1,0 +1,43 @@
+{
+  "description": "FORMA fantasy adaptations of complete KayKit character meshes, baked for editing. These four variants are not original named KayKit characters.",
+  "sourceAuthor": "Kay Lousberg",
+  "sourceLicense": "CC0-1.0",
+  "sourceRepository": "https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0",
+  "sourceRevision": "672074b73ba276876a19e8816ecdc5241817ab47",
+  "recipe": "scripts/prepare-character-models.py",
+  "recipeSha256": "9672dfdaeb7d009a2359d09c4cd4c027d83a5b2188ab03f0947c64edb5981e46",
+  "models": [
+    {
+      "id": "goblin",
+      "sourceFile": "Rogue.glb",
+      "sourceSha256": "e825437cd4d2ee9c1960b517a74a69101e33eb409ae7fa8cedc7134a998fbb7d",
+      "heightMm": 115,
+      "triangles": 4421,
+      "meshSha256": "b934b5faf022f2da3219bd8ea8607afb7b0a93d31a138e5ae548302bdc05b336"
+    },
+    {
+      "id": "ogre",
+      "sourceFile": "Barbarian.glb",
+      "sourceSha256": "cefc311a0e10c7858b6141f5ada7e33268727564fb8ac1347aab97d000669cc6",
+      "heightMm": 230,
+      "triangles": 4203,
+      "meshSha256": "f5993372307c35206f3cfdfed408845d718653968d7b0b99d85b5a4f92aec355"
+    },
+    {
+      "id": "dwarf",
+      "sourceFile": "Barbarian.glb",
+      "sourceSha256": "cefc311a0e10c7858b6141f5ada7e33268727564fb8ac1347aab97d000669cc6",
+      "heightMm": 130,
+      "triangles": 4777,
+      "meshSha256": "59add633f84b910a111451c2fef5518fe1b23bea461b093282cb92e8b14d1cb0"
+    },
+    {
+      "id": "elf",
+      "sourceFile": "Rogue.glb",
+      "sourceSha256": "e825437cd4d2ee9c1960b517a74a69101e33eb409ae7fa8cedc7134a998fbb7d",
+      "heightMm": 175,
+      "triangles": 4385,
+      "meshSha256": "bf74abc52c5a1b3b6da49227e781af94fb70e475d3d0d47e2c1847179db2776d"
+    }
+  ]
+}

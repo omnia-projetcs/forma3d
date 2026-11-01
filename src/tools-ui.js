@@ -4,6 +4,162 @@ const toolError = error => Error(toolText.errors[error.message] || error.message
 const toolNumber = (id, label, value, attributes = '') => `<label class="field"><span>${esc(tx(label))}</span><input id="${id}" type="number" value="${Number(value)}" step="any" ${attributes}></label>`;
 const toolAxes = (id, selected = 0) => `<select id="${id}">${['X', 'Y', 'Z'].map((v, i) => `<option value="${i}" ${i === selected ? 'selected' : ''}>${v}</option>`).join('')}</select>`;
 const toolFormat = value => value.toLocaleString(tx('locale'), {maximumFractionDigits: 3});
+function checkMeshPartsBudget(added, removed = []) {
+  const remaining = state.objects.filter(o => !removed.includes(o));
+  if (remaining.length + added.length > 300) throw Error(tx('partsLimit'));
+  if (FCopy.memoryBytes([...remaining, ...added]) > FCopy.MAX_SCENE_BYTES) throw Error(tx('partsMemoryLimit'));
+}
+function meshPartsInspector(o) {
+  if (!o || o.param) return '';
+  return `<div class="property-section mesh-parts-panel"><div class="section-label">${tx('independentParts')}</div><button class="secondary fullwidth" data-action="splitComponents" ${o.locked || !o.visible || busy ? 'disabled' : ''}>${icon('split')}${tx('separateParts')}</button><p class="note">${tx('partsHelp')}</p></div>`;
+}
+async function splitIndependentParts() {
+  const o = single();
+  // Split in local coordinates: large translations and tiny scales must not
+  // change which triangles share edges. Each part keeps the source transform.
+  const meshes = await runJob('split', {mesh: o.geo}, tx('separatingParts'));
+  if (meshes.length < 2) { toast(tx('singlePartHelp')); return; }
+  const parts = meshes.map((mesh, i) => {
+    const placed = FModel.placeWorld(FG.geometry(mesh));
+    const suffix = ' · ' + tx('part') + ' ' + (i + 1);
+    return makeObject(placed.geo, {
+      name: o.name.slice(0, 100 - suffix.length) + suffix,
+      position: FM.point(matrix(o), placed.position), rotation: o.rotation.slice(), scale: o.scale.slice(),
+      color: o.color, hole: o.hole, smooth: o.smooth, material: o.material ? {...o.material} : null
+    });
+  });
+  checkMeshPartsBudget(parts, state.keepSources ? [] : [o]);
+  commit(tx('separateParts'), () => {
+    if (state.keepSources) o.visible = false;
+    else state.objects = state.objects.filter(item => item.id !== o.id);
+    state.objects.push(...parts); state.selected = parts.map(part => part.id);
+  });
+  toast(parts.length + ' ' + tx('partsSeparated'));
+}
+// Automatic and single-edge rounding use the same temporary preview lifecycle.
+function isManualFillet() { return state.region.filletScope === 'edge'; }
+function filletScopeControl() {
+  const scope = state.region.filletScope || 'all';
+  return `<label class="field"><span>${tx('filletScope')}</span><select id="regionFilletScope" ${busy ? 'disabled' : ''}>${['all', 'side', 'edge'].map(value => `<option value="${value}" ${scope === value ? 'selected' : ''}>${tx('filletScope_' + value)}</option>`).join('')}</select></label>`;
+}
+function filletOrientationControl() {
+  const orientation = state.region.filletOrientation || 'all';
+  return `<label class="field" style="margin-top:10px"><span>${tx('filletOrientation')}</span><select id="regionFilletOrientation" ${busy ? 'disabled' : ''}>${['all', 'vertical', 'horizontal'].map(value => `<option value="${value}" ${orientation === value ? 'selected' : ''}>${tx('filletOrientation_' + value)}</option>`).join('')}</select></label><p class="note">${tx('filletOrientationHelp')}</p>`;
+}
+function autoFilletLauncher(o) {
+  if (!o) return '';
+  return `<div class="property-section"><button class="secondary fullwidth" data-action="autoRound" ${o.locked || !o.visible || o.hole || busy ? 'disabled' : ''}>${icon('fillet')}${tx('autoFillet')}</button></div>`;
+}
+function autoFilletPlan() {
+  const model = currentFilletModel();
+  if (!model) return {error: tx('autoFilletSelect')};
+  if (model.error) return {error: model.error};
+  const o = state.objects.find(o => o.id === model.objectId), r = state.region;
+  const side = r.filletSide || 'z+', axis = 'xyz'.indexOf(side[0]);
+  const local = [0, 0, 0]; local[axis] = (side[1] === '+' ? 1 : -1) * (o.scale[axis] < 0 ? -1 : 1);
+  const settings = {scope: r.filletScope || 'all', direction: FM.rotate(o.rotation, local), adaptive: r.filletAdaptive !== false, progressLabel: tx('autoFillet'), orientation: r.filletOrientation || 'all', orientationAxis: FM.rotate(o.rotation, [0, 0, 1])};
+  const key = settings.scope + '|' + side + '|' + settings.adaptive + '|' + settings.orientation;
+  model.autoPlans ||= new Map();
+  if (!model.autoPlans.has(key)) {
+    try { model.autoPlans.set(key, {...FAutoFillet.plan(model.mesh, settings, model.info), settings, model}); }
+    catch (error) { model.autoPlans.set(key, {error: toolError(error).message}); }
+  }
+  return model.autoPlans.get(key);
+}
+function autoFilletRadiusInput(id, plan = autoFilletPlan()) {
+  const r = state.region, min = plan.complex ? .01 : .05, max = plan.complex && r.filletAdaptive !== false ? 10000 : Math.floor((plan.maxRadius || 10000) * 1000) / 1000;
+  return `<input id="${id}" type="number" aria-label="${tx('autoFilletRadius')}" min="${min}" max="${max}" step="any" inputmode="decimal" value="${Number(r.filletRadius.toFixed(3))}" ${busy ? 'disabled' : ''}>`;
+}
+function autoFilletInspector() {
+  const r = state.region, plan = autoFilletPlan(), error = r.filletError || plan.error;
+  return `<section class="property-section region-panel fillet-panel"><div class="section-label">${tx('autoFillet')} <span class="badge">O</span></div><p class="region-intro">${tx('autoFilletIntro')}</p>
+    ${filletScopeControl()}
+    ${filletOrientationControl()}
+    ${r.filletScope === 'side' ? `<label class="field" style="margin-top:10px"><span>${tx('filletSide')}</span><select id="regionFilletSide" ${busy ? 'disabled' : ''}>${['z+', 'z-', 'x-', 'x+', 'y-', 'y+'].map(value => `<option value="${value}" ${(r.filletSide || 'z+') === value ? 'selected' : ''}>${tx('filletSide_' + value)}</option>`).join('')}</select></label><p class="note">${tx('filletSideHelp')}</p>` : ''}
+    ${plan.complex ? `<label class="inline-check"><input id="regionFilletAdaptive" type="checkbox" ${r.filletAdaptive !== false ? 'checked' : ''} ${busy ? 'disabled' : ''}>${tx('filletAdaptive')}</label><p class="note">${tx('filletAdaptiveHelp')}</p>` : ''}
+    <label class="field fillet-radius-field" style="margin-top:10px"><span>${tx(plan.complex && r.filletAdaptive !== false ? 'filletRadiusMaxInput' : 'autoFilletRadius')}</span>${autoFilletRadiusInput('regionFilletRadius', plan)}</label>
+    ${plan.edges ? `<p class="fillet-clearance">${plan.edges.length} ${tx('filletEdgesSelected')}<br>${tx(plan.complex ? 'filletCommonRange' : 'filletRange')} ${radiusText(Math.ceil(plan.minRadius * 1000) / 1000)}–${radiusText(Math.floor(plan.maxRadius * 1000) / 1000)} mm.</p>` : ''}
+    ${error ? `<p class="fillet-error" role="alert">${esc(error)}</p>` : ''}
+    ${r.stats ? `<div class="region-result"><strong>${r.stats.adaptedEdges ? tx('filletRadiusMaxShort') : 'R'} ${radiusText(r.stats.radius)} mm · ${r.stats.edgeCount} ${tx('filletEdgesRounded')}</strong><span>${tx('filletClosed')} · ${toolFormat(r.stats.triangles)} triangles</span>${r.stats.adaptedEdges ? `<span>${tx('filletEffectiveRadius')} ${radiusText(r.stats.effectiveMin)}–${radiusText(r.stats.effectiveMax)} mm · ${r.stats.adaptedEdges} ${tx('filletEdgesAdapted')}</span>` : ''}</div><label class="inline-check"><input id="regionCompare" type="checkbox" ${r.compare ? 'checked' : ''}>${tx('filletCompare')}</label>` : ''}
+    <div class="region-controls"><button class="secondary" data-action="regionPreview" ${plan.error || busy ? 'disabled' : ''}>${tx('filletPreview')}</button><button class="primary" data-action="regionApply" ${!r.preview || busy ? 'disabled' : ''}>${tx('filletApply')}</button></div>
+    <button class="secondary fullwidth" data-action="cancelEdit">${tx('filletCancel')}</button><p class="note">${tx('autoFilletHelp')}</p></section>`;
+}
+function autoFilletHud(hud) {
+  const r = state.region;
+  const selectionLabel = tx('filletScope_' + (r.filletScope || 'all')) + ((r.filletOrientation || 'all') !== 'all' ? ' · ' + tx('filletOrientation_' + r.filletOrientation) : '');
+  hud.classList.add('fillet-hud');
+  hud.innerHTML = `<div class="region-hud-title"><strong>${tx('autoFillet')}</strong><span class="badge">${r.preview ? tx('filletPreviewReady') : busy ? tx('filletCalculating') : esc(selectionLabel)}</span></div>
+    <p>${esc(r.filletError || (r.preview ? (r.filletOrientation && r.filletOrientation !== 'all' ? tx('filletOrientation_' + r.filletOrientation) + '. ' : '') + (r.stats?.adaptedEdges ? tx('filletEffectiveRadius') + ' ' + radiusText(r.stats.effectiveMin) + '–' + radiusText(r.stats.effectiveMax) + ' mm. ' : '') + tx('filletPreviewHelp') : tx('autoFilletIntro')))}</p><div class="fillet-hud-row"><label>${tx('filletRadiusShort')} ${autoFilletRadiusInput('regionFilletRadiusHud')}<span>mm</span></label><button class="primary" data-action="regionApply" ${!r.preview || busy ? 'disabled' : ''}>${tx('filletApply')}</button><button class="secondary" data-action="cancelEdit">${tx('filletCancel')}</button></div>`;
+}
+function beginAutoFillet(preview = true) {
+  discardRegion(true);
+  const o = editable().length === 1 ? editable()[0] : null, r = state.region;
+  if (o && !o.hole) { r.objectId = o.id; r.sourceId = o.geo.id; r.sourceKey = filletSignature(o); r.center = objectBounds(o).center.slice(); }
+  update();
+  if (preview && o && !o.hole) queueAutoFilletPreview();
+}
+function queueAutoFilletPreview() {
+  clearTimeout(filletTimer);
+  const r = state.region, revision = r.revision;
+  filletTimer = setTimeout(async () => {
+    filletTimer = null;
+    if (busy || gesture || $('modal').open || state.mode !== 'round' || isManualFillet() || r.revision !== revision || !r.objectId) return;
+    try { await previewAutoFillet(); }
+    catch (error) { if (state.mode === 'round' && !isManualFillet() && r.revision === revision) { r.filletError = error.message; update(); } }
+  }, 250);
+}
+function changeAutoFilletSetting(el) {
+  const r = state.region;
+  if (el.id === 'regionFilletOrientation') {
+    if (!['all', 'vertical', 'horizontal'].includes(el.value)) return;
+    r.filletOrientation = el.value; beginAutoFillet(); return;
+  }
+  if (el.id === 'regionFilletAdaptive') { r.filletAdaptive = el.checked; beginAutoFillet(); return; }
+  if (el.id === 'regionFilletSide') { r.filletSide = el.value; beginAutoFillet(); return; }
+  const value = +el.value;
+  discardRegion(false);
+  const minimum = autoFilletPlan().complex ? .01 : .05;
+  if (!el.value.trim() || !Number.isFinite(value) || value < minimum || value > 10000) { r.filletError = tx(minimum === .01 ? 'filletInvalidSmallRadius' : 'filletInvalidRadius'); update(); return; }
+  r.filletRadius = value; update(); queueAutoFilletPreview();
+}
+function changeFilletScope(value) {
+  if (!['all', 'side', 'edge'].includes(value)) return;
+  state.region.filletScope = value;
+  if (value === 'edge') { discardRegion(true); update(); }
+  else beginAutoFillet();
+}
+async function previewAutoFillet() {
+  clearTimeout(filletTimer); filletTimer = null;
+  const o = single(), r = state.region;
+  if (o.hole) throw Error(tx('autoFilletSelect'));
+  if (r.objectId !== o.id || r.sourceKey !== filletSignature(o)) beginAutoFillet(false);
+  const plan = autoFilletPlan();
+  if (plan.error) { r.filletError = plan.error; update(); throw Error(plan.error); }
+  const radius = r.filletRadius, key = filletSignature(o);
+  discardRegion(false);
+  const revision = r.revision;
+  if (radius < plan.minRadius || (radius > plan.maxRadius && !(plan.complex && plan.settings.adaptive))) { r.filletError = tx('filletRadiusTooLarge'); update(); throw Error(r.filletError); }
+  let result;
+  try { result = await runJob('autoFillet', {mesh: plan.model.mesh.positions, radius, ...plan.settings}, tx('autoFillet')); }
+  catch (error) { const translated = toolError(error); if (r.revision === revision && state.mode === 'round') { r.filletError = translated.message; update(); } throw translated; }
+  if (state.mode !== 'round' || isManualFillet() || !state.objects.includes(o) || r.objectId !== o.id || filletSignature(o) !== key || r.revision !== revision) return;
+  r.preview = {...o, geo: FG.geometry(result.positions), position: [0, 0, 0], rotation: [0, 0, 0, 1], scale: [1, 1, 1], param: null, smooth: true};
+  r.stats = result.stats; r.compare = false; r.filletError = null;
+  renderer.previewObject = r.preview; renderer.zone = null; update();
+}
+function filletAppliedToast(stats, fallback) {return stats.adaptedEdges ? tx('filletAppliedWithAdaptation') + ' ' + radiusText(stats.effectiveMin) + '–' + radiusText(stats.effectiveMax) + ' mm. ' + tx('filletUndoHint') : fallback;}
+function filletHistoryLabel(stats, label) {
+  if (stats.orientation && stats.orientation !== 'all') label += ' · ' + tx('filletOrientation_' + stats.orientation);
+  return stats.adaptedEdges ? label + ' · ' + tx('filletAdaptedTag') : label;
+}
+function drawAutoFilletOverlay() {
+  const plan = autoFilletPlan(), r = state.region;
+  if (!plan.edges) return;
+  const lines = r.preview && !r.compare ? r.stats?.guideLines || [] : plan.edges.flatMap(e => [...e.a, ...e.b]);
+  const gl = renderer.gl; gl.depthMask(false); gl.depthFunc(gl.LEQUAL);
+  renderer.lines(lines, '#ed9a24', 1); gl.depthFunc(gl.LESS); gl.depthMask(true);
+}
+
 function patternDialog() {
   const list = editable();
   if (!list.length) throw Error(tx('selectObjects'));
