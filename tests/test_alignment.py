@@ -79,7 +79,7 @@ def run_checks(browser, locale):
     errors, remote = [], []
     page.on('pageerror', lambda error: errors.append(str(error)))
     page.on('request', lambda request: remote.append(request.url) if request.url.startswith(('http:', 'https:')) else None)
-    page.goto((ROOT / f'FORMA3D_{locale}.html').as_uri())
+    page.goto((ROOT / 'FORMA3D.html').as_uri() + '?lang=' + locale.lower())
     page.wait_for_function('window.FORMA?.ready')
     assert page.evaluate(CORE)
     history = setup(page)

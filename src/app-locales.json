@@ -1,0 +1,770 @@
+[
+  [
+    "FORMA 3D: a local, self-contained 3D mesh editor. Import, create, edit and export STL files in your browser.",
+    "FORMA 3D : éditeur de maillages 3D local et autonome. Importez, créez, modifiez et exportez des fichiers STL dans votre navigateur."
+  ],
+  [
+    "FORMA 3D — 3D modeling studio",
+    "FORMA 3D — Studio de modélisation 3D"
+  ],
+  [
+    "3D STUDIO",
+    "STUDIO 3D"
+  ],
+  [
+    "My first project",
+    "Mon premier projet"
+  ],
+  [
+    "Project name",
+    "Nom du projet"
+  ],
+  [
+    "Local · no file uploads",
+    "Local · aucun envoi de fichiers"
+  ],
+  [
+    "New project",
+    "Nouveau projet"
+  ],
+  [
+    "Open project",
+    "Ouvrir un projet"
+  ],
+  [
+    "Save editable project (Ctrl+S)",
+    "Enregistrer le projet modifiable (Ctrl+S)"
+  ],
+  [
+    "Save",
+    "Enregistrer"
+  ],
+  [
+    "Import ",
+    "Importer "
+  ],
+  [
+    "Export ",
+    "Exporter "
+  ],
+  [
+    "Help and shortcuts",
+    "Aide et raccourcis"
+  ],
+  [
+    "Help",
+    "Aide"
+  ],
+  [
+    "Modeling tools",
+    "Outils de modélisation"
+  ],
+  [
+    "Undo (Ctrl+Z)",
+    "Annuler (Ctrl+Z)"
+  ],
+  [
+    "Undo",
+    "Annuler"
+  ],
+  [
+    "Redo (Ctrl+Shift+Z or Ctrl+Y)",
+    "Rétablir (Ctrl+Maj+Z ou Ctrl+Y)"
+  ],
+  [
+    "Redo",
+    "Rétablir"
+  ],
+  [
+    "Copy selection (Ctrl/Cmd+C)",
+    "Copier la sélection (Ctrl/Cmd+C)"
+  ],
+  [
+    "Copy selection",
+    "Copier la sélection"
+  ],
+  [
+    "Copy",
+    "Copier"
+  ],
+  [
+    "Paste beside the copied selection (Ctrl/Cmd+V)",
+    "Coller à côté de la sélection copiée (Ctrl/Cmd+V)"
+  ],
+  [
+    "Paste objects",
+    "Coller des objets"
+  ],
+  [
+    "Paste",
+    "Coller"
+  ],
+  [
+    "Duplicate selection beside the original (Ctrl/Cmd+D)",
+    "Dupliquer la sélection à côté de l’original (Ctrl/Cmd+D)"
+  ],
+  [
+    "Duplicate selection",
+    "Dupliquer la sélection"
+  ],
+  [
+    "Duplicate",
+    "Dupliquer"
+  ],
+  [
+    "Shapes and timeline",
+    "Formes et historique"
+  ],
+  [
+    "Move (G)",
+    "Déplacer (G)"
+  ],
+  [
+    "Move",
+    "Déplacer"
+  ],
+  [
+    "Rotate (R)",
+    "Tourner (R)"
+  ],
+  [
+    "Rotate",
+    "Tourner"
+  ],
+  [
+    "Resize using the handles (S)",
+    "Redimensionner avec les poignées (S)"
+  ],
+  [
+    "Resize",
+    "Redimensionner"
+  ],
+  [
+    "Round a straight exterior edge with a radius in millimeters (O)",
+    "Arrondir une arête extérieure droite avec un rayon en millimètres (O)"
+  ],
+  [
+    "Round edges",
+    "Arrondir les arêtes"
+  ],
+  [
+    "Thin a local area (T)",
+    "Amincir une zone locale (T)"
+  ],
+  [
+    "Thin area",
+    "Amincir la zone"
+  ],
+  [
+    "Face extrusion (E)",
+    "Extrusion de face (E)"
+  ],
+  [
+    "Move mesh points / sculpt (B)",
+    "Déplacer les points du maillage / sculpter (B)"
+  ],
+  [
+    "Sculpt",
+    "Sculpter"
+  ],
+  [
+    "Measure (M)",
+    "Mesurer (M)"
+  ],
+  [
+    "Measure",
+    "Mesurer"
+  ],
+  [
+    "Mirror horizontally in current view",
+    "Symétrie horizontale dans la vue actuelle"
+  ],
+  [
+    "Mirror horizontal",
+    "Miroir horizontal"
+  ],
+  [
+    "Mirror H",
+    "Miroir H"
+  ],
+  [
+    "Mirror vertically in current view",
+    "Symétrie verticale dans la vue actuelle"
+  ],
+  [
+    "Mirror vertical",
+    "Miroir vertical"
+  ],
+  [
+    "Mirror V",
+    "Miroir V"
+  ],
+  [
+    "Merge selected solids and apply Hole objects",
+    "Fusionner les solides sélectionnés et appliquer les objets de perçage"
+  ],
+  [
+    "Merge selected solids and apply holes",
+    "Fusionner les solides sélectionnés et appliquer les perçages"
+  ],
+  [
+    "Merge",
+    "Fusionner"
+  ],
+  [
+    "Compose, subtract, intersect and restore original shapes",
+    "Composer, soustraire, intersecter et restaurer les formes originales"
+  ],
+  [
+    "Operations menu",
+    "Menu Opérations"
+  ],
+  [
+    "Operations",
+    "Opérations"
+  ],
+  [
+    "Plane cut",
+    "Coupe par plan"
+  ],
+  [
+    "Cut",
+    "Découper"
+  ],
+  [
+    "Add the selection to a custom or imported library",
+    "Ajouter la sélection à une bibliothèque personnalisée ou importée"
+  ],
+  [
+    "Add selection to library",
+    "Ajouter la sélection à la bibliothèque"
+  ],
+  [
+    "Add to library",
+    "Ajouter à la bibliothèque"
+  ],
+  [
+    "Save shape",
+    "Mémoriser"
+  ],
+  [
+    "Cancel current tool, drag or preview (Esc)",
+    "Annuler l’outil, le déplacement ou l’aperçu actuel (Échap)"
+  ],
+  [
+    "Cancel edit",
+    "Annuler la modification"
+  ],
+  [
+    "More tools",
+    "Autres outils"
+  ],
+  [
+    "Properties",
+    "Propriétés"
+  ],
+  [
+    "Library",
+    "Bibliothèque"
+  ],
+  [
+    "24 shapes",
+    "24 formes"
+  ],
+  [
+    "Shape library",
+    "Bibliothèque de formes"
+  ],
+  [
+    "Built-in",
+    "Formes natives"
+  ],
+  [
+    "My libraries",
+    "Mes bibliothèques"
+  ],
+  [
+    "Find a shape…",
+    "Rechercher une forme…"
+  ],
+  [
+    "Search shapes",
+    "Rechercher des formes"
+  ],
+  [
+    "Shape category",
+    "Catégorie de forme"
+  ],
+  [
+    "All categories",
+    "Toutes les catégories"
+  ],
+  [
+    "Basic volumes",
+    "Volumes de base"
+  ],
+  [
+    "Polyhedra & pyramids",
+    "Polyèdres et pyramides"
+  ],
+  [
+    "Mechanical shapes",
+    "Formes mécaniques"
+  ],
+  [
+    "Text & creative",
+    "Texte et création"
+  ],
+  [
+    "Personal library",
+    "Bibliothèque personnelle"
+  ],
+  [
+    "My shapes",
+    "Mes formes"
+  ],
+  [
+    "New personal library",
+    "Nouvelle bibliothèque personnelle"
+  ],
+  [
+    "New library",
+    "Nouvelle bibliothèque"
+  ],
+  [
+    "Manage",
+    "Gérer"
+  ],
+  [
+    "Import",
+    "Importer"
+  ],
+  [
+    "Export",
+    "Exporter"
+  ],
+  [
+    "Add to library…",
+    "Ajouter à la bibliothèque…"
+  ],
+  [
+    "Select a shape to save it for reuse",
+    "Sélectionnez une forme pour l’enregistrer et la réutiliser"
+  ],
+  [
+    "Opening local libraries…",
+    "Ouverture des bibliothèques locales…"
+  ],
+  [
+    "Sketch studio · 2D / 3D",
+    "Atelier d’esquisse · 2D / 3D"
+  ],
+  [
+    "Action timeline",
+    "Chronologie des actions"
+  ],
+  [
+    "Timeline",
+    "Historique"
+  ],
+  [
+    "Expand timeline and manage branches",
+    "Agrandir l’historique et gérer les branches"
+  ],
+  [
+    "Expand timeline",
+    "Agrandir l’historique"
+  ],
+  [
+    "Preserved history branch",
+    "Branche d’historique conservée"
+  ],
+  [
+    "Earliest retained state",
+    "Plus ancien état conservé"
+  ],
+  [
+    "Initial state",
+    "État initial"
+  ],
+  [
+    "Previous state",
+    "État précédent"
+  ],
+  [
+    "State 0 / 0",
+    "État 0 / 0"
+  ],
+  [
+    "Next state",
+    "État suivant"
+  ],
+  [
+    "End of branch",
+    "Fin de branche"
+  ],
+  [
+    "Timeline state",
+    "État de l’historique"
+  ],
+  [
+    "Recorded actions",
+    "Actions enregistrées"
+  ],
+  [
+    "Scrub freely. Future states are kept.",
+    "Parcourez librement. Les états suivants sont conservés."
+  ],
+  [
+    "Manage objects…",
+    "Gérer les objets…"
+  ],
+  [
+    "100% local · no account or cloud",
+    "100 % local · sans compte ni cloud"
+  ],
+  [
+    "3D modeling workspace",
+    "Espace de modélisation 3D"
+  ],
+  [
+    "Interactive 3D viewport",
+    "Vue 3D interactive"
+  ],
+  [
+    "Editable dimensions on the part",
+    "Cotes modifiables sur la pièce"
+  ],
+  [
+    "Edit width X",
+    "Modifier la largeur X"
+  ],
+  [
+    "Edit depth Y",
+    "Modifier la profondeur Y"
+  ],
+  [
+    "Edit height Z",
+    "Modifier la hauteur Z"
+  ],
+  [
+    "Direct resizing",
+    "Redimensionnement direct"
+  ],
+  [
+    "Sides: X / Y / Z · corners: width + depth",
+    "Côtés : X / Y / Z · coins : largeur + profondeur"
+  ],
+  [
+    "Shift",
+    "Maj"
+  ],
+  [
+    "From center ",
+    "Depuis le centre "
+  ],
+  [
+    "Drag a handle · click a dimension to enter its value",
+    "Glissez une poignée · cliquez sur une cote pour saisir sa valeur"
+  ],
+  [
+    "Edit a part dimension",
+    "Modifier une dimension de la pièce"
+  ],
+  [
+    "Apply",
+    "Appliquer"
+  ],
+  [
+    "Cancel",
+    "Annuler"
+  ],
+  [
+    "Cancel input",
+    "Annuler la saisie"
+  ],
+  [
+    "Change projection",
+    "Changer la projection"
+  ],
+  [
+    "ISOMETRIC",
+    "ISOMÉTRIQUE"
+  ],
+  [
+    "The movement plane adapts to the view and stays fixed during each drag.",
+    "Le plan de déplacement s’adapte à la vue et reste fixe pendant chaque glissement."
+  ],
+  [
+    "Drag: XY",
+    "Déplacement : XY"
+  ],
+  [
+    "Camera orientation",
+    "Orientation de la caméra"
+  ],
+  [
+    "Top view",
+    "Vue de dessus"
+  ],
+  [
+    "TOP",
+    "DESSUS"
+  ],
+  [
+    "Left view",
+    "Vue de gauche"
+  ],
+  [
+    "L.",
+    "G."
+  ],
+  [
+    "Isometric view",
+    "Vue isométrique"
+  ],
+  [
+    "Right view",
+    "Vue de droite"
+  ],
+  [
+    "R.",
+    "D."
+  ],
+  [
+    "Front view",
+    "Vue de face"
+  ],
+  [
+    "FRONT",
+    "FACE"
+  ],
+  [
+    "Bottom view · orthographic (6)",
+    "Vue de dessous · orthographique (6)"
+  ],
+  [
+    "BOTTOM",
+    "DESSOUS"
+  ],
+  [
+    "Back view",
+    "Vue arrière"
+  ],
+  [
+    "BACK",
+    "ARRIÈRE"
+  ],
+  [
+    "Highlight real edges and cut boundaries",
+    "Souligner les arêtes réelles et les bords des coupes"
+  ],
+  [
+    "Details",
+    "Détails"
+  ],
+  [
+    "Edges",
+    "Arêtes"
+  ],
+  [
+    "Frame selection (F)",
+    "Cadrer la sélection (F)"
+  ],
+  [
+    "Frame selection",
+    "Cadrer la sélection"
+  ],
+  [
+    "Show grid",
+    "Afficher la grille"
+  ],
+  [
+    "Grid",
+    "Grille"
+  ],
+  [
+    "Show triangles",
+    "Afficher les triangles"
+  ],
+  [
+    "Wireframe",
+    "Fil de fer"
+  ],
+  [
+    "X-ray",
+    "Rayons X"
+  ],
+  [
+    "Workplane size",
+    "Taille du plan de travail"
+  ],
+  [
+    "Halve the grid dimensions (objects unchanged)",
+    "Diviser les dimensions de la grille par deux (objets inchangés)"
+  ],
+  [
+    "Reduce workplane size",
+    "Réduire le plan de travail"
+  ],
+  [
+    "Set workplane dimensions and frame the grid",
+    "Définir les dimensions du plan de travail et cadrer la grille"
+  ],
+  [
+    "WORKPLANE · EDIT",
+    "PLAN DE TRAVAIL · MODIFIER"
+  ],
+  [
+    "Double the grid dimensions (objects unchanged)",
+    "Doubler les dimensions de la grille (objets inchangés)"
+  ],
+  [
+    "Enlarge workplane size",
+    "Agrandir le plan de travail"
+  ],
+  [
+    "YOUR WORKSPACE, IN YOUR BROWSER",
+    "VOTRE ATELIER, DANS VOTRE NAVIGATEUR"
+  ],
+  [
+    "Give your ideas shape.",
+    "Donnez forme à vos idées."
+  ],
+  [
+    "Combine shapes, edit an STL",
+    "Combinez des formes, modifiez un STL"
+  ],
+  [
+    "and create your next 3D part.",
+    "et créez votre prochaine pièce 3D."
+  ],
+  [
+    "Create a part",
+    "Créer une pièce"
+  ],
+  [
+    "Import STL",
+    "Importer un STL"
+  ],
+  [
+    "Explore an example part →",
+    "Explorer une pièce d’exemple →"
+  ],
+  [
+    "Click",
+    "Cliquez"
+  ],
+  [
+    " select · ",
+    " sélectionner · "
+  ],
+  [
+    "Shift+click",
+    "Maj+clic"
+  ],
+  [
+    " add",
+    " ajouter"
+  ],
+  [
+    "Drag background / right-drag",
+    "Glisser le fond / glisser droit"
+  ],
+  [
+    " orbit · ",
+    " tourner · "
+  ],
+  [
+    "Wheel",
+    "Molette"
+  ],
+  [
+    " zoom",
+    " zoomer"
+  ],
+  [
+    "Enable snapping",
+    "Activer l’accrochage"
+  ],
+  [
+    "Snap",
+    "Accrochage"
+  ],
+  [
+    "Grid step",
+    "Pas de grille"
+  ],
+  [
+    "0.1 mm",
+    "0,1 mm"
+  ],
+  [
+    "0.5 mm",
+    "0,5 mm"
+  ],
+  [
+    "Automatically align object edges and centers. Hold Shift during a drag to suspend object snapping.",
+    "Aligner automatiquement les bords et les centres des objets. Maintenez Maj pendant le glissement pour suspendre cet accrochage."
+  ],
+  [
+    "Automatic object alignment",
+    "Alignement automatique des objets"
+  ],
+  [
+    "Align",
+    "Aligner"
+  ],
+  [
+    "Calculating geometry",
+    "Calcul de la géométrie"
+  ],
+  [
+    "Your project remains unchanged during the calculation.",
+    "Votre projet reste inchangé pendant le calcul."
+  ],
+  [
+    "Cancel job",
+    "Annuler le calcul"
+  ],
+  [
+    "Drop your file here",
+    "Déposez votre fichier ici"
+  ],
+  [
+    "STL · .forma3d project · .forma3dlib library",
+    "STL · projet .forma3d · bibliothèque .forma3dlib"
+  ],
+  [
+    "Close properties",
+    "Fermer les propriétés"
+  ],
+  [
+    "Precise dimensions, in millimeters.",
+    "Dimensions précises, en millimètres."
+  ],
+  [
+    "No object selected",
+    "Aucun objet sélectionné"
+  ],
+  [
+    "Z-up coordinates · ",
+    "Coordonnées Z vers le haut · "
+  ],
+  [
+    "v1.6.0 EN",
+    "v1.6.0 FR"
+  ],
+  [
+    "Close",
+    "Fermer"
+  ],
+  [
+    "JavaScript is required.",
+    "JavaScript est requis."
+  ],
+  [
+    "Enable JavaScript to use the editor.",
+    "Activez JavaScript pour utiliser l’éditeur."
+  ]
+]

@@ -1,4 +1,4 @@
-/* Shared, dependency-free modelling helpers. Embedded in both standalone editions. */
+/* Shared, dependency-free modelling helpers. Embedded in the bilingual standalone application. */
 var FTools = (() => {
   'use strict';
   function material(value) {

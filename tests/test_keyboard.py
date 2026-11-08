@@ -1,4 +1,4 @@
-"""Real keyboard, clipboard and pointer regressions for both standalone editions.
+"""Real keyboard, clipboard and pointer regressions for both languages in the standalone application.
 
 Run: python3 tests/test_keyboard.py
 """
@@ -160,8 +160,8 @@ def main():
         with sync_playwright() as p:
             browser = p.chromium.launch(executable_path=executable, headless=True, args=['--no-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'])
             for locale in ['FR', 'EN']:
-                path = ROOT / f'FORMA3D_{locale}.html'
-                for url in [path.as_uri(), f'http://127.0.0.1:{server.server_address[1]}/{path.name}']:
+                path = ROOT / 'FORMA3D.html'
+                for url in [path.as_uri() + '?lang=' + locale.lower(), f'http://127.0.0.1:{server.server_address[1]}/{path.name}?lang={locale.lower()}']:
                     run_checks(browser, url, locale)
             browser.close()
     finally:

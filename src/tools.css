@@ -5,3 +5,6 @@
 .section-panel p{font-size:10px;line-height:1.5;color:#7b899d;margin:8px 0 0}.section-panel .section-status{color:#b17b2e}
 .properties-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:12px}.properties-table td,.properties-table th{padding:8px 5px;border-bottom:1px solid var(--line);text-align:right}.properties-table td:first-child,.properties-table th:first-child{text-align:left;overflow-wrap:anywhere;max-width:160px}
 .property-result{font-size:12px;line-height:1.8;overflow-wrap:anywhere}.pattern-summary{padding:8px;background:var(--soft);border-radius:7px;font-size:11px;color:#526ca0;margin:10px 0}
+/* The compact language control stays available on narrow screens. */
+.head-actions .language-select{width:51px;min-width:51px;padding:6px 2px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);font:inherit;font-size:11px;cursor:pointer}
+@media(max-width:480px){.head-actions .language-select{width:44px;min-width:44px;font-size:10px}}

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Render exact template geometry with FORMA's existing software rasterizer. */
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto'),zlib=require('zlib');
-const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8'),html=read('FORMA3D_FR.html');
+const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8'),html=read('FORMA3D.html');
 const core=read('src/character-core.js'),models=read('src/character-models.js'),data=read('src/character-model-data.json');
 const fingerprint=crypto.createHash('sha256').update(core+'\n'+models+'\n'+data).digest('hex');
 if(process.argv.includes('--check')){

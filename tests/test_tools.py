@@ -98,8 +98,8 @@ CORE_CHECKS = r"""async () => {
 
 
 def syntax_checks():
-    for suffix in ['EN', 'FR']:
-        html = (ROOT / f'FORMA3D_{suffix}.html').read_text()
+    for filename in ['FORMA3D.html']:
+        html = (ROOT / filename).read_text()
         for attrs, code in re.findall(r'<script([^>]*)>(.*?)</script>', html, re.S):
             if 'text/plain' in attrs:
                 continue
@@ -115,7 +115,7 @@ def run_browser_checks(browser, origin, locale):
     errors, remote = [], []
     page.on('pageerror', lambda error: errors.append(str(error)))
     page.on('request', lambda request: remote.append(request.url) if request.url.startswith(('http:', 'https:')) and not request.url.startswith(origin) else None)
-    page.goto(f'{origin}/FORMA3D_{locale}.html')
+    page.goto(f'{origin}/FORMA3D.html?lang={locale.lower()}')
     page.wait_for_function('window.FORMA?.ready')
     checks = page.evaluate(CORE_CHECKS)
     page.evaluate('FORMA.patternDialog()')

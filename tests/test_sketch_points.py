@@ -1,4 +1,4 @@
-"""Real mouse regressions for right-click sketch points in both editions.
+"""Real mouse regressions for right-click sketch points in both languages.
 
 Run: python3 tests/test_sketch_points.py
 Uses the same development-only browser dependencies as test_tools.py.
@@ -18,7 +18,7 @@ def check_points(browser, origin, locale):
     page = context.new_page()
     errors = []
     page.on('pageerror', lambda error: errors.append(str(error)))
-    page.goto(f'{origin}/FORMA3D_{locale}.html')
+    page.goto(f'{origin}/FORMA3D.html?lang={locale.lower()}')
     page.wait_for_function('window.FORMA?.ready')
     page.evaluate('FORMA.sketchDialog()')
     page.wait_for_function("document.getElementById('skCanvas_xy').width>100")

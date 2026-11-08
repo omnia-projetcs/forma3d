@@ -1,4 +1,4 @@
-"""STL import, independent parts and export regressions in both editions.
+"""STL import, independent parts and export regressions in both languages.
 
 Run: python3 tests/test_stl_parts.py
 Uses the same development-only Playwright/Chrome dependencies as test_tools.py.
@@ -56,7 +56,7 @@ def checks(browser, locale, output):
     errors, remote = [], []
     page.on('pageerror', lambda error: errors.append(str(error)))
     page.on('request', lambda req: remote.append(req.url) if req.url.startswith(('http:', 'https:')) else None)
-    page.goto((ROOT / f'FORMA3D_{locale}.html').as_uri())
+    page.goto((ROOT / 'FORMA3D.html').as_uri() + '?lang=' + locale.lower())
     page.wait_for_function('window.FORMA?.ready')
 
     import_file(page)

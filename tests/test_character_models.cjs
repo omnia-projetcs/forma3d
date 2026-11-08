@@ -1,5 +1,5 @@
 const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert/strict'),crypto=require('crypto');
-const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8'),html=read('FORMA3D_FR.html');
+const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8'),html=read('FORMA3D.html');
 const ctx={console,atob,TextEncoder,TextDecoder,crypto:crypto.webcrypto,self:{postMessage(){}}};vm.createContext(ctx);
 vm.runInContext(JSON.parse(html.match(/var FORMA_WORKER_SOURCE = ("[^\n]+");/)[1]),ctx);
 vm.runInContext(read('src/character-core.js')+'\nvar FCharacterModelData='+read('src/character-model-data.json')+';\n'+read('src/character-models.js'),ctx);ctx.assert=assert;

@@ -74,7 +74,7 @@ def run_checks(browser, locale):
     page = context.new_page()
     errors = []
     page.on('pageerror', lambda error: errors.append(str(error)))
-    url = (ROOT / f'FORMA3D_{locale}.html').as_uri()
+    url = (ROOT / 'FORMA3D.html').as_uri() + '?lang=' + locale.lower()
     page.goto(url)
     page.wait_for_function('window.FORMA?.ready')
     assert page.evaluate(FIXTURE) == 1000

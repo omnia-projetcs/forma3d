@@ -273,7 +273,7 @@ function sectionDialog() {
     sectionTimer = setTimeout(() => {
       const section = renderer.section; if (!section || sequence !== sectionSequence) return;
       try {
-        const url = URL.createObjectURL(new Blob([FORMA_WORKER_SOURCE], {type: 'text/javascript'}));
+        const url = URL.createObjectURL(new Blob([FI18N.workerLocale(), FORMA_WORKER_SOURCE], {type: 'text/javascript'}));
         try { sectionWorker = new Worker(url); } finally { URL.revokeObjectURL(url); }
         const w = sectionWorker;
         const fail = () => { if (sequence !== sectionSequence) return; clearTimeout(sectionTimeout); w.terminate(); sectionWorker = null; if ($('sectionStatus')) $('sectionStatus').textContent = tx('sectionFailed'); };

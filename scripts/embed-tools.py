@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Embed shared tools in the two standalone HTML files, with no runtime imports."""
+"""Embed shared tools and both languages in FORMA3D.html, with no runtime imports."""
 import argparse
 import base64
 import json
@@ -26,7 +26,7 @@ var FManifold = (() => {
 '''
 worker = core + '\n' + bootstrap + '\n' + (ROOT / 'src/tools-worker.js').read_text() + '\n' + (ROOT / 'src/character-worker.js').read_text()
 previews = json.loads((ROOT / 'src/character-model-previews.json').read_text())['images']
-ui = 'const characterModelPreviews = ' + json.dumps(previews, ensure_ascii=False) + ';\n' + (ROOT / 'src/tools-ui.js').read_text() + '\n' + (ROOT / 'src/character-ui.js').read_text()
+ui = 'const characterModelPreviews = ' + json.dumps(previews, ensure_ascii=False) + ';\n' + (ROOT / 'src/tools-ui.js').read_text() + '\n' + (ROOT / 'src/character-ui.js').read_text() + '\n' + (ROOT / 'src/i18n-ui.js').read_text()
 styles = (ROOT / 'src/tools.css').read_text() + '\n' + (ROOT / 'src/character.css').read_text()
 locales = json.loads((ROOT / 'src/tools-locales.json').read_text())
 
@@ -38,12 +38,15 @@ def replace(text, name, content):
         raise ValueError(f'Expected one {name} marker, found {count}')
     return result
 
-for locale, suffix in [('en', 'EN'), ('fr', 'FR')]:
-    path = ROOT / f'FORMA3D_{suffix}.html'
+for filename in ['FORMA3D.html']:
+    path = ROOT / filename
     text = path.read_text()
     text = replace(text, 'CORE', core + '\nFORMA_WORKER_SOURCE += ' + json.dumps('\n' + worker, ensure_ascii=False) + ';')
-    text = replace(text, 'UI', 'const toolText = ' + json.dumps(locales[locale], ensure_ascii=False, indent=2) + ';\n' + ui)
+    text = replace(text, 'UI', 'const toolLocales = ' + json.dumps(locales, ensure_ascii=False, indent=2) + ';\nconst toolText = {...toolLocales[FORMA_LANG]};\n' + ui)
     text = replace(text, 'CSS', styles)
+    static_locales = json.loads((ROOT / 'src/app-locales.json').read_text())
+    i18n = (ROOT / 'src/i18n.js').read_text() + '\n' + json.dumps(static_locales, ensure_ascii=False) + '.forEach(([en, fr]) => FI18N.text(en, fr));'
+    text = replace(text, 'I18N', i18n)
     license_markup = '<script type="text/plain" id="manifoldLicense">\nManifold 3.5.4 — https://github.com/elalish/manifold\n' + (vendor / 'LICENSE').read_text() + '\n</script>\n'
     if 'id="manifoldLicense"' in text:
         text = re.sub(r'<script type="text/plain" id="manifoldLicense">.*?</script>\n', lambda _: license_markup, text, flags=re.S)

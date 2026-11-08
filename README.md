@@ -24,22 +24,24 @@ This repository is designed to be minimal, ultra-portable, and instantly usable 
 
 | File | Description |
 | :--- | :--- |
-| **[`FORMA3D_EN.html`](FORMA3D_EN.html)** | **Complete standalone English application** (all HTML, CSS, JavaScript, WebGL renderer, CSG engines, embedded WebAssembly, and demo part in a single file). |
-| **[`FORMA3D_FR.html`](FORMA3D_FR.html)** | **Complete standalone French application** (Édition autonome en français). |
+| **[`FORMA3D.html`](FORMA3D.html)** | **Complete standalone French/English application** with a live FR/EN selector (all HTML, CSS, JavaScript, WebGL renderer, CSG engines, embedded WebAssembly, and demo part in one file). |
 | **[`FORMA3D_EN_Preview.png`](FORMA3D_EN_Preview.png)** | High-resolution user interface screenshot and preview image. |
 | **[`LICENSE`](LICENSE)** | MIT Open Source License (Nicolas Hanteville & contributors). |
 | **[`README.md`](README.md)** | User guide and comprehensive project documentation. |
-| **`src/tools-*.js`, `src/auto-fillet.js`, `src/tools-locales.json`, `src/tools.css`** | Shared sources for the new patterns and inspection tools, embedded into both standalone editions. Needed only for development. |
+| **`src/tools-*.js`, `src/auto-fillet.js`, `src/tools-locales.json`, `src/tools.css`** | Shared sources for the new patterns and inspection tools, embedded into the bilingual standalone application. Needed only for development. |
 | **`scripts/embed-tools.py`** | Rebuilds the embedded tools and bundled local geometry runtime. |
 | **`vendor/manifold-3d/`** | Pinned Manifold 3.5.4 JavaScript/WebAssembly and Apache-2.0 license, embedded for local rounding of complex parts. No runtime download. |
-| **`tests/test_tools.py`** | Browser and geometry regression checks for both editions. |
+| **`tests/test_tools.py`, `tests/test_i18n.py`** | Browser, geometry and live FR/EN regression checks, including offline use. |
+| **`src/i18n.js`, `src/i18n-ui.js`, `src/app-locales.json`** | Language selection, persistent interface translations and live editor updates. Embedded by `scripts/embed-tools.py`; no runtime imports. |
 
 ---
 
 ## 🚀 Quick Start
 
 ### 1. Direct Launch (Easiest)
-Simply double-click on **`FORMA3D_EN.html`** (or `FORMA3D_FR.html` for the French edition) to open it in any modern desktop browser (Google Chrome, Mozilla Firefox, Microsoft Edge, Safari, Brave, etc.) with hardware acceleration/WebGL enabled.
+Simply double-click on **`FORMA3D.html`** to open it in any modern desktop browser (Google Chrome, Mozilla Firefox, Microsoft Edge, Safari, Brave, etc.) with hardware acceleration/WebGL enabled.
+
+Use the **FR / EN selector** in the header to change language instantly. The browser language determines the initial selection; your choice is remembered locally when storage is available. Direct links can override it with `?lang=fr` or `?lang=en`. Switching keeps the scene, current selection, undo/redo branches and session clipboard without reloading or creating a history entry. Existing `.forma3d` projects and `.forma3dlib` libraries remain compatible; your own object and project names are preserved.
 
 Because it is a single self-contained HTML file, you can keep it on a USB flash drive or offline drive and use it anywhere without an Internet connection.
 
@@ -50,7 +52,7 @@ With **Python 3**:
 ```bash
 python3 -m http.server 8080
 ```
-Then navigate to: [http://127.0.0.1:8080/FORMA3D_EN.html](http://127.0.0.1:8080/FORMA3D_EN.html)
+Then navigate to: [http://127.0.0.1:8080/FORMA3D.html](http://127.0.0.1:8080/FORMA3D.html)
 
 With **Node.js**:
 ```bash
@@ -86,11 +88,11 @@ npx serve .
 
 ![Character Studio preview](FORMA3D_Character_Preview.png)
 
-Use **Part / Character** (**Pièce / Personnage**) in the header to switch workspaces. The character workspace replaces mechanical settings with contextual sculpting controls. The vertical toolbar provides selection (`V`), move (`G`), rotate (`R`), resize (`S`) and sculpt (`B`). Library and history can be collapsed independently; Space opens searchable commands. All features run locally in both standalone HTML editions.
+Use **Part / Character** (**Pièce / Personnage**) in the header to switch workspaces. The character workspace replaces mechanical settings with contextual sculpting controls. The vertical toolbar provides selection (`V`), move (`G`), rotate (`R`), resize (`S`) and sculpt (`B`). Library and history can be collapsed independently; Space opens searchable commands. All features run locally in the bilingual standalone HTML file.
 
-**Pour commencer en français :** ouvrez `FORMA3D_FR.html`, choisissez **Personnage**, puis cliquez sur un modèle dans **Modèles de personnages**. Sept figurines complètes sont incluses : **Chevalier**, **Mage**, **Rogue**, **Gobelin**, **Ogre**, **Nain** et **Elfe**. Elles ont un visage, une tenue et des couleurs. Le filtre **Monstres** regroupe le gobelin et l’ogre ; **Nains et elfes** regroupe les deux peuples fantastiques. L’ajout se fait en un clic ; un nouveau personnage est placé à côté des objets existants. La recherche et les filtres permettent de retrouver un modèle. Les bases Tête / Buste / Corps restent accessibles sous **Créer une base personnalisée**.
+**Pour commencer en français :** ouvrez `FORMA3D.html`, choisissez **Personnage**, puis cliquez sur un modèle dans **Modèles de personnages**. Sept figurines complètes sont incluses : **Chevalier**, **Mage**, **Rogue**, **Gobelin**, **Ogre**, **Nain** et **Elfe**. Elles ont un visage, une tenue et des couleurs. Le filtre **Monstres** regroupe le gobelin et l’ogre ; **Nains et elfes** regroupe les deux peuples fantastiques. L’ajout se fait en un clic ; un nouveau personnage est placé à côté des objets existants. La recherche et les filtres permettent de retrouver un modèle. Les bases Tête / Buste / Corps restent accessibles sous **Créer une base personnalisée**.
 
-The **Knight, Mage and Rogue** are original artist-made assets by **Kay Lousberg / KayKit**, from the [official Adventurers Character Pack](https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0), revision `672074b73ba276876a19e8816ecdc5241817ab47`, under **CC0 1.0**. Full source GLBs, the creator's licence and SHA-256 provenance are retained in `assets/characters/kaykit/`; the licence is also embedded in each standalone edition. Their geometry and colour previews are bundled, so inserting them requires no network access.
+The **Knight, Mage and Rogue** are original artist-made assets by **Kay Lousberg / KayKit**, from the [official Adventurers Character Pack](https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0), revision `672074b73ba276876a19e8816ecdc5241817ab47`, under **CC0 1.0**. Full source GLBs, the creator's licence and SHA-256 provenance are retained in `assets/characters/kaykit/`; the licence is also embedded in the standalone application. Their geometry and colour previews are bundled, so inserting them requires no network access.
 
 The **Goblin, Ogre, Dwarf and Elf** are **FORMA adaptations of the complete KayKit meshes**, not additional original characters from the pack. They are baked from the Rogue (goblin/elf) and Barbarian (ogre/dwarf), with edited proportions and palettes, pointed ears, fangs/tusks where applicable, and retained clothing. The original [KayKit source and CC0 licence](https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0) also document their base assets. The exact source hashes, recipe hash and resulting mesh hashes are recorded in [`assets/characters/kaykit/adaptations.json`](assets/characters/kaykit/adaptations.json); the reproducible recipe is [`scripts/prepare-character-models.py`](scripts/prepare-character-models.py). The previous Barbarian and Hooded Rogue identifiers remain readable in existing projects, but are no longer shown in the seven-figurine catalogue.
 
@@ -116,7 +118,7 @@ Sculpting, topology tools and remeshing accept up to **120,000 source triangles*
 
 For brush interaction, a reusable vertex spatial index limits neighbourhood searches; a refittable triangle BVH accelerates picking. Sculpt strokes update affected normals and GPU buffer ranges rather than rebuilding all rendering buffers. These are implementation improvements, not a guaranteed frame rate on every device. Source meshes and previous history states are not modified in place.
 
-Character sources are maintained in `src/character-core.js`, `src/character-models.js`, `src/character-ui.js`, `src/character-worker.js` and `src/character.css`. `scripts/embed-tools.py` embeds them in both editions and the isolated geometry worker. No additional runtime library or service is introduced. To rebuild the artist models from the bundled GLBs, use `python3 scripts/prepare-character-models.py` (development only: NumPy/Pillow), then `node scripts/build-character-previews.cjs`, then `python3 scripts/embed-tools.py`. `node scripts/build-character-previews.cjs --check` checks preview freshness.
+Character sources are maintained in `src/character-core.js`, `src/character-models.js`, `src/character-ui.js`, `src/character-worker.js` and `src/character.css`. `scripts/embed-tools.py` embeds them in the bilingual application and the isolated geometry worker. No additional runtime library or service is introduced. To rebuild the artist models from the bundled GLBs, use `python3 scripts/prepare-character-models.py` (development only: NumPy/Pillow), then `node scripts/build-character-previews.cjs`, then `python3 scripts/embed-tools.py`. `node scripts/build-character-previews.cjs --check` checks preview freshness.
 
 ### 1. Create and resize a part
 1. Click any shape from the left library panel to add it to the scene.
@@ -207,16 +209,16 @@ FORMA 3D is a lightweight polyhedral mesh editor tailored for rapid 3D printing 
 
 Character Studio checks: run `node tests/test_character_core.cjs` for geometry, remeshing, BVH, topology, UV, skeleton and binary GLB checks, and `python3 tests/test_character.py` for creation, brushes, mask/history persistence, references, UV/rig/pose dialogs, manual retopology, worker operations and desktop/tablet/mobile layouts in both languages.
 
-Finished model checks: `node tests/test_character_models.cjs` validates all five meshes, colour arrays, transforms, GLB colour attributes, source hashes and previews. `python3 tests/test_character_models.py` checks one-click insertion, search/filter/empty states, sculpture and undo, colour persistence through native files/autosave/clipboard, coloured GLB export, the original wire/grid rendering paths, narrow layouts and blocked external requests in both languages.
+Finished model checks: `node tests/test_character_models.cjs` validates all seven meshes, colour arrays, transforms, GLB colour attributes, source hashes and previews. `python3 tests/test_character_models.py` checks one-click insertion, search/filter/empty states, sculpture and undo, colour persistence through native files/autosave/clipboard, coloured GLB export, the original wire/grid rendering paths, narrow layouts and blocked external requests in both languages.
 
-Both HTML editions still work on their own. To update the shared pattern and inspection tools, edit their sources in `src/`, then run:
+The single `FORMA3D.html` file contains both languages and works on its own. To update the shared tools or language controls, edit their sources in `src/`, then run:
 
 ```bash
 python3 scripts/embed-tools.py
 python3 scripts/embed-tools.py --check
 ```
 
-Run `python3 tests/test_tools.py` for syntax checks, analytic geometry checks, and browser workflows in both languages. Run `python3 tests/test_stl_parts.py` for STL component separation, import options and units, independent editing and export, source retention, undo/redo, capacity limits and narrow-screen checks in both editions. Run `python3 tests/test_auto_fillet.py` for analytic radius and volume checks, six-side isolation, vertical/horizontal filtering, rotated/scaled objects, imported STL, preview/apply/cancel, undo/redo, manual-edge compatibility, export and narrow-screen controls. Run `node tests/test_auto_fillet_complex.cjs` for the actual bundled worker initialization, automatic rounding around openings and attached walls, local radius adaptation, exact-radius refusal, retained openings and connectivity, one-side operations and binary STL round-trips. Set `FORMA_TEST_PROJECT` to a local `.forma3d` path to include that project in the read-only geometry regression; no personal fixture is stored in the repository. Run `python3 tests/test_sketch_points.py` for right-click sketch drawing, insertion, curve preservation, pan and undo/redo checks. Run `python3 tests/test_alignment.py` for edge/center alignment, zoom tolerance, multi-object dragging, rotated/scaled references, movement planes and axes, temporary bypass, grid interaction, undo/redo and narrow-screen layout in both editions. Run `python3 tests/test_history.py` to verify rolling replacement after 1,000 states, old project migration, complete file and autosave restoration, retained branches, undo/redo, and memory budget handling. Run `python3 tests/test_keyboard.py` for keyboard focus, numeric entry, text and object clipboard, cut/undo and pointer movement checks in both editions, using both direct HTML files and a local web server. Development checks require Node.js, Python Playwright and Chrome/Chromium; the application has no such runtime dependencies. Set `FORMA_CHROME` if the browser executable is not on the default path.
+Run `python3 tests/test_tools.py` for syntax checks, analytic geometry checks, and browser workflows in both languages. Run `python3 tests/test_stl_parts.py` for STL component separation, import options and units, independent editing and export, source retention, undo/redo, capacity limits and narrow-screen checks in the bilingual application. Run `python3 tests/test_auto_fillet.py` for analytic radius and volume checks, six-side isolation, vertical/horizontal filtering, rotated/scaled objects, imported STL, preview/apply/cancel, undo/redo, manual-edge compatibility, export and narrow-screen controls. Run `node tests/test_auto_fillet_complex.cjs` for the actual bundled worker initialization, automatic rounding around openings and attached walls, local radius adaptation, exact-radius refusal, retained openings and connectivity, one-side operations and binary STL round-trips. Set `FORMA_TEST_PROJECT` to a local `.forma3d` path to include that project in the read-only geometry regression; no personal fixture is stored in the repository. Run `python3 tests/test_sketch_points.py` for right-click sketch drawing, insertion, curve preservation, pan and undo/redo checks. Run `python3 tests/test_alignment.py` for edge/center alignment, zoom tolerance, multi-object dragging, rotated/scaled references, movement planes and axes, temporary bypass, grid interaction, undo/redo and narrow-screen layout in the bilingual application. Run `python3 tests/test_history.py` to verify rolling replacement after 1,000 states, old project migration, complete file and autosave restoration, retained branches, undo/redo, and memory budget handling. Run `python3 tests/test_keyboard.py` for keyboard focus, numeric entry, text and object clipboard, cut/undo and pointer movement checks in the bilingual application, using the same HTML file directly and through a local web server. Run `python3 tests/test_i18n.py` for live FR/EN switching, unchanged project/branches/clipboard, worker language, parameter labels, persisted preferences, blocked storage and standalone offline use. Development checks require Node.js, Python Playwright and Chrome/Chromium; the application has no such runtime dependencies. Set `FORMA_CHROME` if the browser executable is not on the default path.
 
 ---
 

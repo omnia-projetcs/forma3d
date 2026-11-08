@@ -5,7 +5,7 @@
 const fs = require('fs'), path = require('path'), vm = require('vm'), assert = require('assert');
 const root = path.resolve(__dirname, '..');
 async function check(locale) {
-  const html = fs.readFileSync(path.join(root, `FORMA3D_${locale}.html`), 'utf8'), chunks = [];
+  const html = fs.readFileSync(path.join(root, 'FORMA3D.html'), 'utf8'), chunks = [];
   const pattern = /FORMA_WORKER_SOURCE\s*(\+?=)\s*("(?:[^"\\]|\\.)*")\s*;/g;
   for (const match of html.matchAll(pattern)) chunks.push(JSON.parse(match[2]));
   const posted = [], self = {postMessage: result => posted.push(result)};

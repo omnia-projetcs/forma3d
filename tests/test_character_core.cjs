@@ -1,6 +1,6 @@
 /* Geometry regressions use the exact geometry engine bundled in the HTML. */
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),path=require('path');
-const root=path.resolve(__dirname,'..'),html=fs.readFileSync(path.join(root,'FORMA3D_FR.html'),'utf8');
+const root=path.resolve(__dirname,'..'),html=fs.readFileSync(path.join(root,'FORMA3D.html'),'utf8');
 const context={console,performance,crypto:require('crypto').webcrypto,TextEncoder,TextDecoder,atob,btoa,self:{postMessage(){}},setTimeout,clearTimeout};
 vm.createContext(context);vm.runInContext(JSON.parse(html.match(/var FORMA_WORKER_SOURCE = ("[^\n]+");/)[1]),context);
 vm.runInContext(fs.readFileSync(path.join(root,'src/character-core.js'),'utf8'),context);

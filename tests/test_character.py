@@ -25,7 +25,7 @@ def run_checks(browser, origin, locale):
     errors, external = [], []
     page.on('pageerror', lambda error: errors.append(str(error)))
     context.route('**/*', lambda route: route.continue_() if route.request.url.startswith(origin) or route.request.url.startswith(('blob:', 'data:')) else (external.append(route.request.url), route.abort()))
-    page.goto(f'{origin}/FORMA3D_{locale}.html')
+    page.goto(f'{origin}/FORMA3D.html?lang={locale.lower()}')
     page.wait_for_function('window.FORMA?.character')
     page.locator('[data-character=character]').click()
     page.locator('.character-custom-bases > summary').click()
